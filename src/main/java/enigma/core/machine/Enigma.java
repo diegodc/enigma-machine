@@ -1,9 +1,9 @@
 package enigma.core.machine;
 
-import enigma.core.util.Alphabet;
 import enigma.core.devices.Plugboard;
 import enigma.core.devices.Reflector;
 import enigma.core.devices.Rotor;
+import enigma.core.util.Alphabet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,13 +89,14 @@ public class Enigma {
         return ringSettings;
     }
 
-    public void changeRotorsPositions(String positions) {
+    public Enigma changeRotorsPositions(String positions) {
         validateRotorSettings(positions);
         int i = 0;
         for (Rotor rotor : rotors) {
             rotor.changePositionTo(Alphabet.fromChar(positions.charAt(i)));
             i++;
         }
+        return this;
     }
 
     private void validateRotorSettings(String settings) {
@@ -103,22 +104,24 @@ public class Enigma {
             throw new IllegalArgumentException();
     }
 
-    public void changeRingSettings(String ringsSettings) {
+    public Enigma changeRingSettings(String ringsSettings) {
         validateRotorSettings(ringsSettings);
         int i = 0;
         for (Rotor rotor : rotors) {
             rotor.ringSetting(Alphabet.fromChar(ringsSettings.charAt(i)));
             i++;
         }
+        return this;
     }
 
-    public void setPlugboard(String settings) {
+    public Enigma setPlugboard(String settings) {
         plugboard.reset();
         validatePlugboardSettings(settings);
         String[] pairs = settings.split(" ");
         for (String pair : pairs) {
             setPair(pair);
         }
+        return this;
     }
 
     private void validatePlugboardSettings(String settings) {

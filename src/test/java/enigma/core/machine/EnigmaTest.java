@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static enigma.core.RotorFactory.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * EnigmaTest
@@ -21,7 +22,7 @@ class EnigmaTest {
     }
 
     @Test
-    void initialSettings() {
+    void initialSettings_ShouldBeAAA() {
         assertEquals("AAA", enigma.getRotorsPositions());
         assertEquals("AAA", enigma.getRingSettings());
     }
@@ -155,8 +156,8 @@ class EnigmaTest {
     @Test
     void cipherMessageWithKeyAndRingSetting() {
         /* example from http://wiki.franklinheath.co.uk/index.php/Enigma/Paper_Enigma */
-        enigma.changeRingSettings("JNU");
-        enigma.changeRotorsPositions("XYZ");
+        enigma.changeRingSettings("JNU")
+                .changeRotorsPositions("XYZ");
 
         String plainText = "QKTPEBZIUK";
         String cipherText = "GOODRESULT";
@@ -167,21 +168,21 @@ class EnigmaTest {
     void setPlugboard() {
         assertEquals("OZHFXR", enigma.cipherMessage("TTTTTT"));
 
-        enigma.setPlugboard("TP");
-        enigma.changeRotorsPositions("AAA");
+        enigma.changeRotorsPositions("AAA")
+                .setPlugboard("TP");
         assertEquals("OZHFXR", enigma.cipherMessage("PPPPPP"));
 
-        enigma.setPlugboard("TP OE ZN HI FG XM RA");
-        enigma.changeRotorsPositions("AAA");
+        enigma.changeRotorsPositions("AAA")
+                .setPlugboard("TP OE ZN HI FG XM RA");
         assertEquals("ENIGMA", enigma.cipherMessage("PPPPPP"));
     }
 
     @Test
     void cipherMessageInCustomSettings() {
         /* example from http://wiki.franklinheath.co.uk/index.php/Enigma/Paper_Enigma */
-        enigma.changeRingSettings("JNU");
-        enigma.changeRotorsPositions("VQQ");
-        enigma.setPlugboard("AP BR CM FZ GJ IL NT OV QS WX");
+        enigma.changeRingSettings("JNU")
+                .changeRotorsPositions("VQQ")
+                .setPlugboard("AP BR CM FZ GJ IL NT OV QS WX");
 
         String plainText = "HABHVHLYDFNADZY";
         String cipherText = "THATSITWELLDONE";
@@ -190,9 +191,9 @@ class EnigmaTest {
 
     @Test
     void settingsCanBeReset() {
-        enigma.changeRingSettings("JNU");
-        enigma.changeRotorsPositions("VQQ");
-        enigma.setPlugboard("AP BR CM FZ GJ IL NT OV QS WX");
+        enigma.changeRingSettings("JNU")
+                .changeRotorsPositions("VQQ")
+                .setPlugboard("AP BR CM FZ GJ IL NT OV QS WX");
 
         String plainText = "HABHVHLYDFNADZY";
         String cipherText = "THATSITWELLDONE";
@@ -212,11 +213,10 @@ class EnigmaTest {
             Plug pairs: 	AM FI NV PS TU WZ
             Key = ABL
          */
-        enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII());
-
-        enigma.changeRingSettings("XMV");
-        enigma.changeRotorsPositions("ABL");
-        enigma.setPlugboard("AM FI NV PS TU WZ");
+        enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII())
+                .changeRingSettings("XMV")
+                .changeRotorsPositions("ABL")
+                .setPlugboard("AM FI NV PS TU WZ");
 
         String plainText = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
         String cipherText = "FEINDLIQEINFANTERIEKOLONNEBEOBAQTETXANFANGSUEDAUSGANGBAERWALDEXENDEDREIKMOSTWAERTSNEUSTADT";
@@ -244,11 +244,10 @@ class EnigmaTest {
             Part One Key = BLA
             Part Two Key = LSD
          */
-        enigma = new Enigma(reflectorB(), rotorII(), rotorIV(), rotorV());
-
-        enigma.changeRingSettings("BUL");
-        enigma.changeRotorsPositions("BLA");
-        enigma.setPlugboard("AV BS CG DL FU HZ IN KM OW RX");
+        enigma = new Enigma(reflectorB(), rotorII(), rotorIV(), rotorV())
+                .changeRingSettings("BUL")
+                .changeRotorsPositions("BLA")
+                .setPlugboard("AV BS CG DL FU HZ IN KM OW RX");
 
         String plainTextPartOne = "EDPUDNRGYSZRCXNUYTPOMRMBOFKTBZREZKMLXLVEFGUEYSIOZVEQMIKUBPMMYLKLTTDEISMDICAGYKU" +
                 "ACTCDOMOHWXMUUIAUBSTSLRNBZSZWNRFXWFYSSXJZVIJHIDISHPRKLKAYUPADTXQSPINQMATLPIFSVKDASCTACDPBOPVHJK";
@@ -275,11 +274,10 @@ class EnigmaTest {
             Plug pairs: 	AV BF DR IM OS WY
             Key = AQO
          */
-        enigma = new Enigma(reflectorB(), rotorVII(), rotorVI(), rotorV());
-
-        enigma.changeRingSettings("AXP");
-        enigma.changeRotorsPositions("AQO");
-        enigma.setPlugboard("AV BF DR IM OS WY");
+        enigma = new Enigma(reflectorB(), rotorVII(), rotorVI(), rotorV())
+                .changeRingSettings("AXP")
+                .changeRotorsPositions("AQO")
+                .setPlugboard("AV BF DR IM OS WY");
 
         String plainText = "MSPOKQBHQLCMENJJXMYGPKKXWGXTWWXDNYZFQGEKDKSYPKLBBDPMSFUUWHYZLTVOWIOFHKOUZMLQF" +
                 "CFLVQGXOPWNEGWWQJLTFWAMENHBDBRBSYLMSNWYZOIE";
@@ -299,11 +297,10 @@ class EnigmaTest {
 
             Key = UZV
          */
-        enigma = new Enigma(reflectorB(), rotorIII(), rotorVI(), rotorVIII());
-
-        enigma.changeRingSettings("AHM");
-        enigma.changeRotorsPositions("UZV");
-        enigma.setPlugboard("AN EZ HK IJ LR MQ OT PV SW UX");
+        enigma = new Enigma(reflectorB(), rotorIII(), rotorVI(), rotorVIII())
+                .changeRingSettings("AHM")
+                .changeRotorsPositions("UZV")
+                .setPlugboard("AN EZ HK IJ LR MQ OT PV SW UX");
 
         String plainText = "YKAENZAPMSCHZBFOCUVMRMDPYCOFHADZIZMEFXTHFLOLPZLFGGBOTGOXGRETDWTJIQHLMXVJWKZUASTR";
         String cipherText = "STEUEREJTANAFJORDJANSTANDORTQUAAACCCVIERNEUNNEUNZWOFAHRTZWONULSMXXSCHARNHORSTHCO";
@@ -320,11 +317,10 @@ class EnigmaTest {
             Plug pairs: 	AT BL DF GJ HM NW OP QY RZ VX
             Key: V J N A
          */
-        enigma = new Enigma(reflectorThinB(), rotorBetta(), rotorII(), rotorIV(), rotorI());
-
-        enigma.changeRingSettings("AAAV");
-        enigma.changeRotorsPositions("VJNA");
-        enigma.setPlugboard("AT BL DF GJ HM NW OP QY RZ VX");
+        enigma = new Enigma(reflectorThinB(), rotorBetta(), rotorII(), rotorIV(), rotorI())
+                .changeRingSettings("AAAV")
+                .changeRotorsPositions("VJNA")
+                .setPlugboard("AT BL DF GJ HM NW OP QY RZ VX");
 
         String plainText = "NCZWVUSXPNYMINHZXMQXSFWXWLKJAHSHNMCOCCAKUQPMKCSMHKSEINJUSBLKIOSXCKUBHMLLXCSJUSRRDV" +
                 "KOHULXWCCBGVLIYXEOAHXRHKKFVDREWEZLXOBAFGYUJQUKGRTVUKAMEURBVEKSUHHVOYHABCJWMAKLFKLMYFVNRIZRVVR" +
@@ -345,11 +341,10 @@ class EnigmaTest {
             Plug pairs: 	AE BF CM DQ HU JN LX PR SZ VW
             Key: C D S Z
          */
-        enigma = new Enigma(reflectorThinC(), rotorBetta(), rotorV(), rotorVI(), rotorVIII());
-
-        enigma.changeRingSettings("EPEL");
-        enigma.changeRotorsPositions("CDSZ");
-        enigma.setPlugboard("AE BF CM DQ HU JN LX PR SZ VW");
+        enigma = new Enigma(reflectorThinC(), rotorBetta(), rotorV(), rotorVI(), rotorVIII())
+                .changeRingSettings("EPEL")
+                .changeRotorsPositions("CDSZ")
+                .setPlugboard("AE BF CM DQ HU JN LX PR SZ VW");
 
         String plainText = "LANOTCTOUARBBFPMHPHGCZXTDYGAHGUFXGEWKBLKGJWLQXXTGPJJAVTOCKZFSLPPQIHZFXOEBWIIEKFZLCLOAQJ" +
                 "ULJOYHSSMBBGWHZANVOIIPYRBRTDJQDJJOQKCXWDNBBTYVXLYTAPGVEATXSONPNYNQFUDBBHHVWEPYEYDOHNLXKZDNWRHDUWUJ" +
@@ -372,11 +367,10 @@ class EnigmaTest {
             Plug pairs: 	CH EJ NV OU TY LG SZ PK DI QB
             Key: Y V O S
          */
-        enigma = new Enigma(reflectorThinB(), rotorGamma(), rotorIV(), rotorIII(), rotorVIII());
-
-        enigma.changeRingSettings("AACU");
-        enigma.changeRotorsPositions("YVOS");
-        enigma.setPlugboard("CH EJ NV OU TY LG SZ PK DI QB");
+        enigma = new Enigma(reflectorThinB(), rotorGamma(), rotorIV(), rotorIII(), rotorVIII())
+                .changeRingSettings("AACU")
+                .changeRotorsPositions("YVOS")
+                .setPlugboard("CH EJ NV OU TY LG SZ PK DI QB");
 
         String plainText = "YUPOVEJTBKONNFSALTWELQAZJXTIRJLLISCSGXSHEJFYNZQDNQSUXPGFTJKWINGORYBJYADWNFCLPPNSLWUYBUQISXGQ";
         String cipherText = "FFFDDDUUUAUSBILDUNGVONVONZWOSECHSUUUFLOTTXXTTTFFFZWODREIAUSGEZQESTETMITSSSSSSGCGXTTTFFFZWOQI";

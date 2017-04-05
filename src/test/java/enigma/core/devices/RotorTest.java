@@ -1,6 +1,6 @@
 package enigma.core.devices;
 
-import enigma.RotorFactory;
+import enigma.core.RotorFactory;
 import enigma.core.util.Alphabet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -3,7 +3,7 @@ package enigma.core.machine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static enigma.RotorFactory.*;
+import static enigma.core.RotorFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

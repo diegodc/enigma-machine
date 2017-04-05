@@ -1,6 +1,6 @@
 package enigma.core.machine;
 
-import enigma.RotorFactory;
+import enigma.core.RotorFactory;
 import enigma.core.devices.Rotor;
 
 import enigma.core.util.Alphabet;

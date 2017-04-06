@@ -14,11 +14,10 @@ Example:
         Plug pairs: 	  AM FI NV PS TU WZ
         Key =           A B L
     */
-    enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII());
-
-    enigma.changeRingSettings("XMV");
-    enigma.changeRotorsPositions("ABL");
-    enigma.setPlugboard("AM FI NV PS TU WZ");
+    enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII())
+             .changeRingSettings("XMV")
+             .changeRotorsPositions("ABL")
+             .setPlugboard("AM FI NV PS TU WZ");
 
     String message = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
 

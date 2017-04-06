@@ -11,7 +11,7 @@ Example:
         Reflector:      A
         Wheel order:    II I III
         Ring positions: X M V
-        Plug pairs: 	  AM FI NV PS TU WZ
+        Plug pairs:     AM FI NV PS TU WZ
         Key =           A B L
     */
     enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII())

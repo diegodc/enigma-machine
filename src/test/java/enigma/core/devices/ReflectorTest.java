@@ -1,10 +1,10 @@
 package enigma.core.devices;
 
 import enigma.core.RotorFactory;
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 import org.junit.jupiter.api.Test;
 
-import static enigma.core.util.Alphabet.*;
+import static enigma.core.util.Letter.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -18,7 +18,7 @@ class ReflectorTest {
 
     @Test
     void reflect() {
-        Alphabet[] wiring = {Y,R,U,H,Q,S,L,D,P,X,N,G,O,K,M,I,E,B,F,Z,C,W,V,J,A,T};
+        Letter[] wiring = {Y,R,U,H,Q,S,L,D,P,X,N,G,O,K,M,I,E,B,F,Z,C,W,V,J,A,T};
         reflector = new Reflector(wiring);
 
         assertPair(A, Y);
@@ -74,7 +74,7 @@ class ReflectorTest {
         assertPair(M, X);
     }
 
-    private void assertPair(Alphabet letter, Alphabet pairedLetter) {
+    private void assertPair(Letter letter, Letter pairedLetter) {
         assertEquals(letter, reflector.reflect(pairedLetter));
         assertEquals(pairedLetter, reflector.reflect(letter));
     }

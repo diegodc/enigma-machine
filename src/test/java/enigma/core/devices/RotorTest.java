@@ -1,11 +1,11 @@
 package enigma.core.devices;
 
 import enigma.core.RotorFactory;
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static enigma.core.util.Alphabet.*;
+import static enigma.core.util.Letter.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -68,9 +68,9 @@ class RotorTest {
     @Test
     void rotorCyclesThoughAllPositions() {
 
-        Alphabet[] allPositions = Alphabet.values();
+        Letter[] allPositions = Letter.values();
 
-        for(Alphabet expectedPosition : allPositions) {
+        for(Letter expectedPosition : allPositions) {
             assertEquals(expectedPosition, rotor.getPosition());
             rotor.step();
         }

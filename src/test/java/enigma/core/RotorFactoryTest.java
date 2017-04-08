@@ -1,7 +1,7 @@
 package enigma.core;
 
 import enigma.core.devices.Rotor;
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,35 +22,35 @@ class RotorFactoryTest {
     @Test
     void newRotorI() {
         Rotor rotor = RotorFactory.rotorI();
-        rotor.changePositionTo(Alphabet.Q);
+        rotor.changePositionTo(Letter.Q);
         assertTrue(rotor.isAtTurnoverPosition());
     }
 
     @Test
     void newRotorII() {
         Rotor rotor = RotorFactory.rotorII();
-        rotor.changePositionTo(Alphabet.E);
+        rotor.changePositionTo(Letter.E);
         assertTrue(rotor.isAtTurnoverPosition());
     }
 
     @Test
     void newRotorIII() {
         Rotor rotor = RotorFactory.rotorIII();
-        rotor.changePositionTo(Alphabet.V);
+        rotor.changePositionTo(Letter.V);
         assertTrue(rotor.isAtTurnoverPosition());
     }
 
     @Test
     void newRotorIV() {
         Rotor rotor = RotorFactory.rotorIV();
-        rotor.changePositionTo(Alphabet.J);
+        rotor.changePositionTo(Letter.J);
         assertTrue(rotor.isAtTurnoverPosition());
     }
 
     @Test
     void newRotorV() {
         Rotor rotor = RotorFactory.rotorV();
-        rotor.changePositionTo(Alphabet.Z);
+        rotor.changePositionTo(Letter.Z);
         assertTrue(rotor.isAtTurnoverPosition());
     }
 

@@ -1,10 +1,10 @@
 package enigma.core.devices;
 
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static enigma.core.util.Alphabet.*;
+import static enigma.core.util.Letter.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -27,7 +27,7 @@ class PlugboardTest {
     }
 
     private void assertAllLetterAreUnpaired() {
-        for (Alphabet letter : Alphabet.values())
+        for (Letter letter : Letter.values())
             assertEquals(letter, plugboard.cipher(letter));
     }
 

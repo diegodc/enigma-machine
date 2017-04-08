@@ -1,6 +1,6 @@
 package enigma.core.devices;
 
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,36 +13,36 @@ import java.util.Map;
  */
 public class Plugboard {
 
-    private Map<Alphabet, Alphabet> wiring = new HashMap<>();
+    private Map<Letter, Letter> wiring = new HashMap<>();
 
     public Plugboard() {
         generateDefaultWiring();
     }
 
     private void generateDefaultWiring() {
-        for (Alphabet letter : Alphabet.values())
+        for (Letter letter : Letter.values())
             wiring.put(letter, letter);
     }
 
-    public Plugboard pairLetters(Alphabet letter, Alphabet pairedLetter) {
+    public Plugboard pairLetters(Letter letter, Letter pairedLetter) {
         resetPair(letter);
         resetPair(pairedLetter);
         pair(letter, pairedLetter);
         return this;
     }
 
-    private void resetPair(Alphabet letter) {
-        Alphabet paired = cipher(letter);
+    private void resetPair(Letter letter) {
+        Letter paired = cipher(letter);
         wiring.put(letter, letter);
         wiring.put(paired, paired);
     }
 
-    private void pair(Alphabet letter, Alphabet pairedLetter) {
+    private void pair(Letter letter, Letter pairedLetter) {
         wiring.put(letter, pairedLetter);
         wiring.put(pairedLetter, letter);
     }
 
-    public Alphabet cipher(Alphabet letter) {
+    public Letter cipher(Letter letter) {
         return wiring.get(letter);
     }
 

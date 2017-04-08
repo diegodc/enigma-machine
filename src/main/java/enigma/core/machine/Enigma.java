@@ -3,7 +3,7 @@ package enigma.core.machine;
 import enigma.core.devices.Plugboard;
 import enigma.core.devices.Reflector;
 import enigma.core.devices.Rotor;
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class Enigma {
     }
 
     private void cipher(char plainLetter) {
-        Alphabet letter = Alphabet.fromChar(plainLetter);
+        Letter letter = Letter.fromChar(plainLetter);
 
         letter = plugboard.cipher(letter);
 
@@ -93,7 +93,7 @@ public class Enigma {
         validateRotorSettings(positions);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.changePositionTo(Alphabet.fromChar(positions.charAt(i)));
+            rotor.changePositionTo(Letter.fromChar(positions.charAt(i)));
             i++;
         }
         return this;
@@ -108,7 +108,7 @@ public class Enigma {
         validateRotorSettings(ringsSettings);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.ringSetting(Alphabet.fromChar(ringsSettings.charAt(i)));
+            rotor.ringSetting(Letter.fromChar(ringsSettings.charAt(i)));
             i++;
         }
         return this;
@@ -132,7 +132,7 @@ public class Enigma {
     private void setPair(String pair) {
         char letter = pair.charAt(0);
         char pairedLetter = pair.charAt(1);
-        plugboard.pairLetters(Alphabet.fromChar(letter), Alphabet.fromChar(pairedLetter));
+        plugboard.pairLetters(Letter.fromChar(letter), Letter.fromChar(pairedLetter));
     }
 
     public void resetSettings() {

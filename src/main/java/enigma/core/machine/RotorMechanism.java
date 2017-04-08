@@ -1,7 +1,7 @@
 package enigma.core.machine;
 
-import enigma.core.util.Alphabet;
 import enigma.core.devices.Rotor;
+import enigma.core.util.Letter;
 
 /**
  * Responsible for the rotor's stepping motion.
@@ -23,15 +23,15 @@ public class RotorMechanism {
         this.rightRotor = rightRotor;
     }
 
-    public Alphabet leftRotorPosition() {
+    public Letter leftRotorPosition() {
         return leftRotor.getPosition();
     }
 
-    public Alphabet middleRotorPosition() {
+    public Letter middleRotorPosition() {
         return middleRotor.getPosition();
     }
 
-    public Alphabet rightRotorPosition() {
+    public Letter rightRotorPosition() {
         return rightRotor.getPosition();
     }
 

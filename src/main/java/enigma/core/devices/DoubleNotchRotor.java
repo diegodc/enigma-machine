@@ -1,6 +1,6 @@
 package enigma.core.devices;
 
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 
 /**
  * Doble notched rotor of the Enigma machine.
@@ -9,9 +9,9 @@ import enigma.core.util.Alphabet;
  */
 public class DoubleNotchRotor extends Rotor {
 
-    private Alphabet secondTurnoverPosition;
+    private Letter secondTurnoverPosition;
 
-    public DoubleNotchRotor(Alphabet[] wiring, Alphabet[] turnoverPositions) {
+    public DoubleNotchRotor(Letter[] wiring, Letter[] turnoverPositions) {
         super(wiring, turnoverPositions[0]);
         secondTurnoverPosition = turnoverPositions[1];
     }

@@ -1,6 +1,6 @@
 package enigma.core.devices;
 
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +13,17 @@ import java.util.Map;
  */
 public class Reflector {
 
-    private Map<Alphabet, Alphabet> wiring = new HashMap<>();
+    private Map<Letter, Letter> wiring = new HashMap<>();
 
-    public Reflector(Alphabet[] wiring) {
+    public Reflector(Letter[] wiring) {
         int arrayPosition = 0;
-        for (Alphabet letter : Alphabet.values()) {
+        for (Letter letter : Letter.values()) {
             this.wiring.put(letter, wiring[arrayPosition]);
             arrayPosition++;
         }
     }
 
-    public Alphabet reflect(Alphabet absoluteLetter) {
+    public Letter reflect(Letter absoluteLetter) {
         return wiring.get(absoluteLetter);
     }
 

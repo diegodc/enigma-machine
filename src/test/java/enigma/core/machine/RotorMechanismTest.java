@@ -2,12 +2,11 @@ package enigma.core.machine;
 
 import enigma.core.RotorFactory;
 import enigma.core.devices.Rotor;
-
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests the step sequence
@@ -36,71 +35,71 @@ class RotorMechanismTest {
     @Test
     void normalSequence() {
 
-        rightRotor.changePositionTo(Alphabet.U);
-        assertEquals(Alphabet.U, rightRotor.getPosition());
-        assertEquals(Alphabet.A, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        rightRotor.changePositionTo(Letter.U);
+        assertEquals(Letter.U, rightRotor.getPosition());
+        assertEquals(Letter.A, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.V, rightRotor.getPosition());
-        assertEquals(Alphabet.A, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.V, rightRotor.getPosition());
+        assertEquals(Letter.A, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.W, rightRotor.getPosition());
-        assertEquals(Alphabet.B, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.W, rightRotor.getPosition());
+        assertEquals(Letter.B, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.X, rightRotor.getPosition());
-        assertEquals(Alphabet.B, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.X, rightRotor.getPosition());
+        assertEquals(Letter.B, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
     }
 
     @Test
     void doubleStepSequence() {
-        rightRotor.changePositionTo(Alphabet.U);
-        middleRotor.changePositionTo(Alphabet.D);
+        rightRotor.changePositionTo(Letter.U);
+        middleRotor.changePositionTo(Letter.D);
 
-        assertEquals(Alphabet.U, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
-
-        mechanism.step();
-        assertEquals(Alphabet.V, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.U, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.W, rightRotor.getPosition());
-        assertEquals(Alphabet.E, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.V, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.X, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.W, rightRotor.getPosition());
+        assertEquals(Letter.E, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.Y, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.X, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
+
+        mechanism.step();
+        assertEquals(Letter.Y, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
     }
 
     @Test
     void middleRotorSetAtTurnover() {
 
-        rightRotor.changePositionTo(Alphabet.A);
-        middleRotor.changePositionTo(Alphabet.E);
+        rightRotor.changePositionTo(Letter.A);
+        middleRotor.changePositionTo(Letter.E);
 
-        assertEquals(Alphabet.A, rightRotor.getPosition());
-        assertEquals(Alphabet.E, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.A, rightRotor.getPosition());
+        assertEquals(Letter.E, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.B, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.B, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
     }
 
     @Test
@@ -112,42 +111,42 @@ class RotorMechanismTest {
 
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
 
-        rightRotor.changePositionTo(Alphabet.O);
-        middleRotor.changePositionTo(Alphabet.D);
+        rightRotor.changePositionTo(Letter.O);
+        middleRotor.changePositionTo(Letter.D);
 
-        assertEquals(Alphabet.O, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
-
-        mechanism.step();
-        assertEquals(Alphabet.P, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.O, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.Q, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.P, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.R, rightRotor.getPosition());
-        assertEquals(Alphabet.E, middleRotor.getPosition());
-        assertEquals(Alphabet.A, leftRotor.getPosition());
+        assertEquals(Letter.Q, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.S, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.R, rightRotor.getPosition());
+        assertEquals(Letter.E, middleRotor.getPosition());
+        assertEquals(Letter.A, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.T, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.S, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.U, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.B, leftRotor.getPosition());
+        assertEquals(Letter.T, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
+
+        mechanism.step();
+        assertEquals(Letter.U, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.B, leftRotor.getPosition());
     }
 
     @Test
@@ -159,43 +158,43 @@ class RotorMechanismTest {
 
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
 
-        rightRotor.changePositionTo(Alphabet.O);
-        middleRotor.changePositionTo(Alphabet.D);
-        leftRotor.changePositionTo(Alphabet.K);
+        rightRotor.changePositionTo(Letter.O);
+        middleRotor.changePositionTo(Letter.D);
+        leftRotor.changePositionTo(Letter.K);
 
-        assertEquals(Alphabet.O, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.K, leftRotor.getPosition());
-
-        mechanism.step();
-        assertEquals(Alphabet.P, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.K, leftRotor.getPosition());
+        assertEquals(Letter.O, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.K, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.Q, rightRotor.getPosition());
-        assertEquals(Alphabet.D, middleRotor.getPosition());
-        assertEquals(Alphabet.K, leftRotor.getPosition());
+        assertEquals(Letter.P, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.K, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.R, rightRotor.getPosition());
-        assertEquals(Alphabet.E, middleRotor.getPosition());
-        assertEquals(Alphabet.K, leftRotor.getPosition());
+        assertEquals(Letter.Q, rightRotor.getPosition());
+        assertEquals(Letter.D, middleRotor.getPosition());
+        assertEquals(Letter.K, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.S, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.L, leftRotor.getPosition());
+        assertEquals(Letter.R, rightRotor.getPosition());
+        assertEquals(Letter.E, middleRotor.getPosition());
+        assertEquals(Letter.K, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.T, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.L, leftRotor.getPosition());
+        assertEquals(Letter.S, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.L, leftRotor.getPosition());
 
         mechanism.step();
-        assertEquals(Alphabet.U, rightRotor.getPosition());
-        assertEquals(Alphabet.F, middleRotor.getPosition());
-        assertEquals(Alphabet.L, leftRotor.getPosition());
+        assertEquals(Letter.T, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.L, leftRotor.getPosition());
+
+        mechanism.step();
+        assertEquals(Letter.U, rightRotor.getPosition());
+        assertEquals(Letter.F, middleRotor.getPosition());
+        assertEquals(Letter.L, leftRotor.getPosition());
     }
 
 }

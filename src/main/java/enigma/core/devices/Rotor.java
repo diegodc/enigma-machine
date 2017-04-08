@@ -1,6 +1,6 @@
 package enigma.core.devices;
 
-import enigma.core.util.Alphabet;
+import enigma.core.util.Letter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,40 +12,40 @@ import java.util.Map;
  */
 public class Rotor {
 
-    private Alphabet position = Alphabet.A;
-    private Alphabet ringSetting = Alphabet.A;
-    private Alphabet turnoverPosition;
-    private Map<Alphabet, Alphabet> inwardWiring = new HashMap<>();
-    private Map<Alphabet, Alphabet> outwardWiring = new HashMap<>();
+    private Letter position = Letter.A;
+    private Letter ringSetting = Letter.A;
+    private Letter turnoverPosition;
+    private Map<Letter, Letter> inwardWiring = new HashMap<>();
+    private Map<Letter, Letter> outwardWiring = new HashMap<>();
 
-    public Rotor(Alphabet[] wiring, Alphabet turnoverPosition) {
+    public Rotor(Letter[] wiring, Letter turnoverPosition) {
         loadWiringMaps(wiring);
         this.turnoverPosition = turnoverPosition;
     }
 
-    private void loadWiringMaps(Alphabet[] wiring) {
-        Alphabet letter = Alphabet.A;
+    private void loadWiringMaps(Letter[] wiring) {
+        Letter letter = Letter.A;
 
-        for (Alphabet substituteLetter : wiring) {
+        for (Letter substituteLetter : wiring) {
             inwardWiring.put(letter, substituteLetter);
             outwardWiring.put(substituteLetter, letter);
             letter = letter.nextLetter();
         }
     }
 
-    public Alphabet getPosition() {
+    public Letter getPosition() {
         return position;
     }
 
-    public void changePositionTo(Alphabet letter) {
+    public void changePositionTo(Letter letter) {
         position = letter;
     }
 
-    public Alphabet getRingSetting() {
+    public Letter getRingSetting() {
         return ringSetting;
     }
 
-    public void ringSetting(Alphabet letter) {
+    public void ringSetting(Letter letter) {
         ringSetting = letter;
     }
 
@@ -57,26 +57,26 @@ public class Rotor {
         return position == turnoverPosition;
     }
 
-    public Alphabet cipherInwards(Alphabet absoluteLetter) {
+    public Letter cipherInwards(Letter absoluteLetter) {
         return cipherWith(inwardWiring, absoluteLetter);
     }
 
-    public Alphabet cipherOutwards(Alphabet absoluteLetter) {
+    public Letter cipherOutwards(Letter absoluteLetter) {
         return cipherWith(outwardWiring, absoluteLetter);
     }
 
-    private Alphabet cipherWith(Map<Alphabet, Alphabet> wiring, Alphabet absoluteLetter) {
-        Alphabet relativeLetter = toRelativeLetter(absoluteLetter);
-        Alphabet cipherLetter = wiring.get(relativeLetter);
+    private Letter cipherWith(Map<Letter, Letter> wiring, Letter absoluteLetter) {
+        Letter relativeLetter = toRelativeLetter(absoluteLetter);
+        Letter cipherLetter = wiring.get(relativeLetter);
         return toAbsoluteLetter(cipherLetter);
     }
 
-    private Alphabet toRelativeLetter(Alphabet absoluteLetter) {
-        return absoluteLetter.offsetBy(position.ordinal() - ringSetting.ordinal());
+    private Letter toRelativeLetter(Letter absoluteLetter) {
+        return absoluteLetter.shiftBy(position.ordinal() - ringSetting.ordinal());
     }
 
-    private Alphabet toAbsoluteLetter(Alphabet relativeLetter) {
-        return relativeLetter.offsetBy(ringSetting.ordinal() - position.ordinal());
+    private Letter toAbsoluteLetter(Letter relativeLetter) {
+        return relativeLetter.shiftBy(ringSetting.ordinal() - position.ordinal());
     }
 
 }

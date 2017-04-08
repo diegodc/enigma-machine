@@ -1,5 +1,6 @@
 package enigma.core.machine;
 
+import enigma.core.devices.NotchedRotor;
 import enigma.core.devices.Plugboard;
 import enigma.core.devices.Reflector;
 import enigma.core.devices.Rotor;
@@ -24,7 +25,7 @@ public class Enigma {
 
     private StringBuilder cipherText;
 
-    public Enigma(Reflector reflector, Rotor leftRotor, Rotor middleRotor, Rotor rightRotor) {
+    public Enigma(Reflector reflector, NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
         this.reflector = reflector;
         numberOfRotors = 3;
         rotors.add(leftRotor);
@@ -34,7 +35,7 @@ public class Enigma {
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
     }
 
-    public Enigma(Reflector thinReflector, Rotor thin, Rotor leftRotor, Rotor middleRotor, Rotor rightRotor) {
+    public Enigma(Reflector thinReflector, Rotor thin, NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
         this.reflector = thinReflector;
         numberOfRotors = 4;
         rotors.add(thin);
@@ -93,7 +94,7 @@ public class Enigma {
         validateRotorSettings(positions);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.changePositionTo(Letter.fromChar(positions.charAt(i)));
+            rotor.setPosition(Letter.fromChar(positions.charAt(i)));
             i++;
         }
         return this;
@@ -108,7 +109,7 @@ public class Enigma {
         validateRotorSettings(ringsSettings);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.ringSetting(Letter.fromChar(ringsSettings.charAt(i)));
+            rotor.setRingSetting(Letter.fromChar(ringsSettings.charAt(i)));
             i++;
         }
         return this;

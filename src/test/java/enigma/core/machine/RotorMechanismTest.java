@@ -1,8 +1,8 @@
 package enigma.core.machine;
 
-import enigma.core.RotorFactory;
-import enigma.core.devices.Rotor;
+import enigma.core.devices.NotchedRotor;
 import enigma.core.util.Letter;
+import enigma.factory.DeviceFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +19,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RotorMechanismTest {
 
     private RotorMechanism mechanism;
-    private Rotor leftRotor;
-    private Rotor middleRotor;
-    private Rotor rightRotor;
+    private NotchedRotor leftRotor;
+    private NotchedRotor middleRotor;
+    private NotchedRotor rightRotor;
 
     @BeforeEach
     void setUp() {
-        leftRotor = RotorFactory.rotorI();
-        middleRotor = RotorFactory.rotorII();
-        rightRotor = RotorFactory.rotorIII();
+        leftRotor = DeviceFactory.I();
+        middleRotor = DeviceFactory.II();
+        rightRotor = DeviceFactory.III();
 
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
     }
@@ -35,7 +35,7 @@ class RotorMechanismTest {
     @Test
     void normalSequence() {
 
-        rightRotor.changePositionTo(Letter.U);
+        rightRotor.setPosition(Letter.U);
         assertEquals(Letter.U, rightRotor.getPosition());
         assertEquals(Letter.A, middleRotor.getPosition());
         assertEquals(Letter.A, leftRotor.getPosition());
@@ -58,8 +58,8 @@ class RotorMechanismTest {
 
     @Test
     void doubleStepSequence() {
-        rightRotor.changePositionTo(Letter.U);
-        middleRotor.changePositionTo(Letter.D);
+        rightRotor.setPosition(Letter.U);
+        middleRotor.setPosition(Letter.D);
 
         assertEquals(Letter.U, rightRotor.getPosition());
         assertEquals(Letter.D, middleRotor.getPosition());
@@ -89,8 +89,8 @@ class RotorMechanismTest {
     @Test
     void middleRotorSetAtTurnover() {
 
-        rightRotor.changePositionTo(Letter.A);
-        middleRotor.changePositionTo(Letter.E);
+        rightRotor.setPosition(Letter.A);
+        middleRotor.setPosition(Letter.E);
 
         assertEquals(Letter.A, rightRotor.getPosition());
         assertEquals(Letter.E, middleRotor.getPosition());
@@ -105,14 +105,14 @@ class RotorMechanismTest {
     @Test
     void doubleStepSequence2() {
 
-        leftRotor = RotorFactory.rotorIII();
-        middleRotor = RotorFactory.rotorII();
-        rightRotor = RotorFactory.rotorI();
+        leftRotor = DeviceFactory.III();
+        middleRotor = DeviceFactory.II();
+        rightRotor = DeviceFactory.I();
 
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
 
-        rightRotor.changePositionTo(Letter.O);
-        middleRotor.changePositionTo(Letter.D);
+        rightRotor.setPosition(Letter.O);
+        middleRotor.setPosition(Letter.D);
 
         assertEquals(Letter.O, rightRotor.getPosition());
         assertEquals(Letter.D, middleRotor.getPosition());
@@ -152,15 +152,15 @@ class RotorMechanismTest {
     @Test
     void doubleStepSequence3() {
 
-        leftRotor = RotorFactory.rotorIII();
-        middleRotor = RotorFactory.rotorII();
-        rightRotor = RotorFactory.rotorI();
+        leftRotor = DeviceFactory.III();
+        middleRotor = DeviceFactory.II();
+        rightRotor = DeviceFactory.I();
 
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
 
-        rightRotor.changePositionTo(Letter.O);
-        middleRotor.changePositionTo(Letter.D);
-        leftRotor.changePositionTo(Letter.K);
+        rightRotor.setPosition(Letter.O);
+        middleRotor.setPosition(Letter.D);
+        leftRotor.setPosition(Letter.K);
 
         assertEquals(Letter.O, rightRotor.getPosition());
         assertEquals(Letter.D, middleRotor.getPosition());

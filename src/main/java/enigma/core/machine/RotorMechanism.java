@@ -1,38 +1,25 @@
 package enigma.core.machine;
 
-import enigma.core.devices.Rotor;
-import enigma.core.util.Letter;
+import enigma.core.devices.NotchedRotor;
 
 /**
  * Responsible for the rotor's stepping motion.
  *
- * @author diegodc 2017-02-03
+ * @author diegodc 2017-02-03.
  */
 public class RotorMechanism {
 
-    private Rotor leftRotor;
-    private Rotor middleRotor;
-    private Rotor rightRotor;
+    private NotchedRotor leftRotor;
+    private NotchedRotor middleRotor;
+    private NotchedRotor rightRotor;
 
     private boolean middleRotorPawlEngaged;
     private boolean leftRotorPawlEngaged;
 
-    public RotorMechanism(Rotor leftRotor, Rotor middleRotor, Rotor rightRotor) {
+    public RotorMechanism(NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
         this.leftRotor = leftRotor;
         this.middleRotor = middleRotor;
         this.rightRotor = rightRotor;
-    }
-
-    public Letter leftRotorPosition() {
-        return leftRotor.getPosition();
-    }
-
-    public Letter middleRotorPosition() {
-        return middleRotor.getPosition();
-    }
-
-    public Letter rightRotorPosition() {
-        return rightRotor.getPosition();
     }
 
     public void step() {

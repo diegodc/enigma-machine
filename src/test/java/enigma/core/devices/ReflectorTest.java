@@ -1,7 +1,7 @@
 package enigma.core.devices;
 
-import enigma.core.RotorFactory;
 import enigma.core.util.Letter;
+import enigma.factory.DeviceFactory;
 import org.junit.jupiter.api.Test;
 
 import static enigma.core.util.Letter.*;
@@ -38,7 +38,7 @@ class ReflectorTest {
 
     @Test
     void testWiringReflectorB() {
-        reflector = RotorFactory.reflectorB();
+        reflector = DeviceFactory.B();
 
         assertPair(A, Y);
         assertPair(B, R);
@@ -57,7 +57,7 @@ class ReflectorTest {
 
     @Test
     void testWiringReflectorC() {
-        reflector = RotorFactory.reflectorC();
+        reflector = DeviceFactory.C();
 
         assertPair(A, F);
         assertPair(B, V);

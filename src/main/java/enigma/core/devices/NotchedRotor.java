@@ -32,7 +32,7 @@ public class NotchedRotor extends Rotor {
      */
     public boolean isAtTurnoverPosition() {
         return Arrays.stream(turnoverPositions)
-                .anyMatch(letter -> letter == getPosition());
+                .anyMatch(letter -> letter == currentPosition());
     }
 
 }

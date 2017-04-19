@@ -9,7 +9,7 @@ import java.util.Map;
  * The plugboard of the enigma machine.
  * The plugboard connects letters in pairs, swapping those letters before and after the rotors.
  *
- * @author diegodc 2017-02-07
+ * @author diegodc 2017-02-07.
  */
 public class Plugboard {
 
@@ -24,30 +24,30 @@ public class Plugboard {
             wiring.put(letter, letter);
     }
 
-    public Plugboard pairLetters(Letter letter, Letter pairedLetter) {
-        resetPair(letter);
-        resetPair(pairedLetter);
-        pair(letter, pairedLetter);
+    public Letter swap(Letter letter) {
+        return wiring.get(letter);
+    }
+
+    public void disconnectAllPairs() {
+        generateDefaultWiring();
+    }
+
+    public Plugboard connect(Letter letter1, Letter letter2) {
+        disconnectPair(letter1);
+        disconnectPair(letter2);
+        connectPair(letter1, letter2);
         return this;
     }
 
-    private void resetPair(Letter letter) {
-        Letter paired = cipher(letter);
+    private void disconnectPair(Letter letter) {
+        Letter paired = swap(letter);
         wiring.put(letter, letter);
         wiring.put(paired, paired);
     }
 
-    private void pair(Letter letter, Letter pairedLetter) {
-        wiring.put(letter, pairedLetter);
-        wiring.put(pairedLetter, letter);
-    }
-
-    public Letter cipher(Letter letter) {
-        return wiring.get(letter);
-    }
-
-    public void reset() {
-        generateDefaultWiring();
+    private void connectPair(Letter letter, Letter connectedLetter) {
+        wiring.put(letter, connectedLetter);
+        wiring.put(connectedLetter, letter);
     }
 
 }

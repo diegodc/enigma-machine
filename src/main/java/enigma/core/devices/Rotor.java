@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A rotor of the Enigma machine. The rotor ciphers each letter according to its wiring,
+ * A rotor of the Enigma machineModel. The rotor ciphers each letter according to its wiring,
  * position and ring setting.
  *
  * This is a simple rotor without turnover notch.
  *
  * More information: https://en.wikipedia.org/wiki/Enigma_rotor_details
  *
- * @author diegodc 2017-02-02
+ * @author diegodc 2017-02-02.
  */
 public class Rotor {
 
@@ -67,45 +67,22 @@ public class Rotor {
             throw new MalformedWiring();
     }
 
-    /**
-     * Returns the rotor current position.
-     *
-     * @return the rotor position
-     */
-    public Letter getPosition() {
+    public Letter currentPosition() {
         return position;
     }
 
-    /**
-     * Changes the rotor position to the given letter.
-     *
-     * @param letter the new position
-     */
-    public void setPosition(Letter letter) {
+    public void changePosition(Letter letter) {
         position = letter;
     }
 
-    /**
-     * Returns the ring setting of this rotor.
-     *
-     * @return the ring setting
-     */
-    public Letter getRingSetting() {
+    public Letter ringSetting() {
         return ring;
     }
 
-    /**
-     * Changes the ring setting to the given letter.
-     *
-     * @param letter the new setting
-     */
-    public void setRingSetting(Letter letter) {
+    public void changeRingSetting(Letter letter) {
         ring = letter;
     }
 
-    /**
-     * Moves the rotor to the next position.
-     */
     public void step() {
         position = position.nextLetter();
     }
@@ -168,7 +145,5 @@ public class Rotor {
     private Letter toAbsoluteLetter(Letter relativeLetter) {
         return relativeLetter.shiftBy(ring.ordinal() - position.ordinal());
     }
-
-    class MalformedWiring extends RuntimeException {}
 
 }

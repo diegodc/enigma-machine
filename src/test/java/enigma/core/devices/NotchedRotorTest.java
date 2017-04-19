@@ -31,7 +31,7 @@ class NotchedRotorTest {
     void singleNotchRotorKnowsIfItIsAtTurnoverPosition() {
         NotchedRotor rotor = new NotchedRotor(WIRING, SINGLE_NOTCH);
 
-        rotor.setPosition(P);
+        rotor.changePosition(P);
         assertFalse(rotor.isAtTurnoverPosition());
 
         rotor.step();
@@ -44,14 +44,14 @@ class NotchedRotorTest {
     void doubleNotchRotorKnowsIfItIsAtTurnoverPositions() {
         NotchedRotor rotor = new NotchedRotor(WIRING, DOUBLE_NOTCH);
 
-        rotor.setPosition(L);
+        rotor.changePosition(L);
         assertFalse(rotor.isAtTurnoverPosition());
         rotor.step();
         assertTrue(rotor.isAtTurnoverPosition());
         rotor.step();
         assertFalse(rotor.isAtTurnoverPosition());
 
-        rotor.setPosition(Y);
+        rotor.changePosition(Y);
         assertFalse(rotor.isAtTurnoverPosition());
         rotor.step();
         assertTrue(rotor.isAtTurnoverPosition());
@@ -64,7 +64,7 @@ class NotchedRotorTest {
         NotchedRotor rotor = new NotchedRotor(WIRING, SINGLE_NOTCH);
 
         for (int i = 0; i < 26; i++) {
-            if (rotor.getPosition() == Q)
+            if (rotor.currentPosition() == Q)
                 assertTrue(rotor.isAtTurnoverPosition());
             else
                 assertFalse(rotor.isAtTurnoverPosition());
@@ -77,7 +77,7 @@ class NotchedRotorTest {
         NotchedRotor rotor = new NotchedRotor(WIRING, DOUBLE_NOTCH);
 
         for (int i = 0; i < 26; i++) {
-            if (rotor.getPosition() == M || rotor.getPosition() == Z)
+            if (rotor.currentPosition() == M || rotor.currentPosition() == Z)
                 assertTrue(rotor.isAtTurnoverPosition());
             else
                 assertFalse(rotor.isAtTurnoverPosition());
@@ -87,33 +87,33 @@ class NotchedRotorTest {
 
     @Test
     void creatingRotorWithIncompleteWiringShouldThrowException() {
-        assertThrows(Rotor.MalformedWiring.class, () -> new NotchedRotor(INCOMPLETE_WIRING, SINGLE_NOTCH));
+        assertThrows(MalformedWiring.class, () -> new NotchedRotor(INCOMPLETE_WIRING, SINGLE_NOTCH));
     }
 
     @Test
     void creatingRotorWithDuplicateLetterInWiringShouldThrowException() {
-        assertThrows(Rotor.MalformedWiring.class, () -> new NotchedRotor(DUPLICATE_LETTER_WIRING, SINGLE_NOTCH));
+        assertThrows(MalformedWiring.class, () -> new NotchedRotor(DUPLICATE_LETTER_WIRING, SINGLE_NOTCH));
     }
 
     @Test
     void verifyItBehavesAsRotor() {
-        assertEquals(A, rotor.getPosition());
-        rotor.setPosition(C);
-        assertEquals(C, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
+        rotor.changePosition(C);
+        assertEquals(C, rotor.currentPosition());
 
-        assertEquals(A, rotor.getRingSetting());
-        rotor.setRingSetting(B);
-        assertEquals(B, rotor.getRingSetting());
+        assertEquals(A, rotor.ringSetting());
+        rotor.changeRingSetting(B);
+        assertEquals(B, rotor.ringSetting());
 
-        rotor.setPosition(A);
+        rotor.changePosition(A);
         rotor.step();
-        assertEquals(B, rotor.getPosition());
+        assertEquals(B, rotor.currentPosition());
 
-        rotor.setPosition(Z);
-        assertEquals(Z, rotor.getPosition());
+        rotor.changePosition(Z);
+        assertEquals(Z, rotor.currentPosition());
 
         rotor.step();
-        assertEquals(A, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
     }
 
     @Test
@@ -122,11 +122,11 @@ class NotchedRotorTest {
         Letter[] allPositions = Letter.values();
 
         for(Letter expectedPosition : allPositions) {
-            assertEquals(expectedPosition, rotor.getPosition());
+            assertEquals(expectedPosition, rotor.currentPosition());
             rotor.step();
         }
 
-        assertEquals(A, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
     }
 
     @Test
@@ -158,7 +158,7 @@ class NotchedRotorTest {
         Letter[] expectedLetters = {K,F,L,N,G,M,H,E,R,W,A,O,U,P,X,Z,I,Y,V,T,Q,B,J,C,S,D};
         Letter actual = A;
 
-        rotor.setRingSetting(B);
+        rotor.changeRingSetting(B);
 
         for (Letter expected : expectedLetters) {
             assertEquals(expected, rotor.cipherInwards(actual));
@@ -172,7 +172,7 @@ class NotchedRotorTest {
         Letter[] actualLetters = {S,I,F,D,A,L,T,M,C,N,U,P,V,X,Q,W,R,O,B,G,K,Y,E,Z,H,J};
         Letter expected = A;
 
-        rotor.setRingSetting(L);
+        rotor.changeRingSetting(L);
 
         for (Letter actual : actualLetters) {
             assertEquals(expected, rotor.cipherOutwards(actual));

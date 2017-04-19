@@ -28,55 +28,55 @@ class RotorTest {
 
     @Test
     void creatingRotorWithIncompleteWiringShouldThrowException() {
-        assertThrows(Rotor.MalformedWiring.class, () -> new Rotor(INCOMPLETE_WIRING));
+        assertThrows(MalformedWiring.class, () -> new Rotor(INCOMPLETE_WIRING));
     }
 
     @Test
     void creatingRotorWithDuplicateLetterInWiringShouldThrowException() {
-        assertThrows(Rotor.MalformedWiring.class, () -> new Rotor(DUPLICATE_LETTER_WIRING));
+        assertThrows(MalformedWiring.class, () -> new Rotor(DUPLICATE_LETTER_WIRING));
     }
 
     @Test
     void initialPositionShouldBeLetterA() {
-        assertEquals(A, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
     }
 
     @Test
     void positionCanBeChanged() {
-        rotor.setPosition(C);
-        assertEquals(C, rotor.getPosition());
+        rotor.changePosition(C);
+        assertEquals(C, rotor.currentPosition());
     }
 
     @Test
     void initialRingSettingShouldBeLetterA() {
-        assertEquals(A, rotor.getRingSetting());
+        assertEquals(A, rotor.ringSetting());
     }
 
     @Test
     void ringSettingCanBeChanged() {
-        rotor.setRingSetting(B);
-        assertEquals(B, rotor.getRingSetting());
+        rotor.changeRingSetting(B);
+        assertEquals(B, rotor.ringSetting());
 
-        rotor.setRingSetting(L);
-        assertEquals(L, rotor.getRingSetting());
+        rotor.changeRingSetting(L);
+        assertEquals(L, rotor.ringSetting());
 
-        rotor.setRingSetting(Z);
-        assertEquals(Z, rotor.getRingSetting());
+        rotor.changeRingSetting(Z);
+        assertEquals(Z, rotor.ringSetting());
     }
 
     @Test
     void rotorStepsToTheNextPosition() {
         rotor.step();
-        assertEquals(B, rotor.getPosition());
+        assertEquals(B, rotor.currentPosition());
     }
 
     @Test
     void rotorPositionIsResetAfterPositionZ() {
-        rotor.setPosition(Z);
-        assertEquals(Z, rotor.getPosition());
+        rotor.changePosition(Z);
+        assertEquals(Z, rotor.currentPosition());
 
         rotor.step();
-        assertEquals(A, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
     }
 
     @Test
@@ -85,11 +85,11 @@ class RotorTest {
         Letter[] allPositions = Letter.values();
 
         for(Letter expectedPosition : allPositions) {
-            assertEquals(expectedPosition, rotor.getPosition());
+            assertEquals(expectedPosition, rotor.currentPosition());
             rotor.step();
         }
 
-        assertEquals(A, rotor.getPosition());
+        assertEquals(A, rotor.currentPosition());
     }
 
     @Test
@@ -117,127 +117,127 @@ class RotorTest {
 
     @Test
     void cipherInwardsInDifferentPositionsWithDefaultRingSetting() {
-        rotor.setPosition(B);
+        rotor.changePosition(B);
         assertEquals(J, rotor.cipherInwards(A));
         assertEquals(V, rotor.cipherInwards(M));
         assertEquals(D, rotor.cipherInwards(Z));
 
-        rotor.setPosition(C);
+        rotor.changePosition(C);
         assertEquals(K, rotor.cipherInwards(A));
         assertEquals(W, rotor.cipherInwards(M));
         assertEquals(I, rotor.cipherInwards(Z));
 
-        rotor.setPosition(D);
+        rotor.changePosition(D);
         assertEquals(C, rotor.cipherInwards(A));
         assertEquals(E, rotor.cipherInwards(M));
         assertEquals(J, rotor.cipherInwards(Z));
 
-        rotor.setPosition(E);
+        rotor.changePosition(E);
         assertEquals(H, rotor.cipherInwards(A));
         assertEquals(T, rotor.cipherInwards(M));
         assertEquals(B, rotor.cipherInwards(Z));
 
-        rotor.setPosition(F);
+        rotor.changePosition(F);
         assertEquals(B, rotor.cipherInwards(A));
         assertEquals(P, rotor.cipherInwards(M));
         assertEquals(G, rotor.cipherInwards(Z));
 
-        rotor.setPosition(G);
+        rotor.changePosition(G);
         assertEquals(X, rotor.cipherInwards(A));
         assertEquals(M, rotor.cipherInwards(M));
         assertEquals(A, rotor.cipherInwards(Z));
 
-        rotor.setPosition(H);
+        rotor.changePosition(H);
         assertEquals(J, rotor.cipherInwards(A));
         assertEquals(I, rotor.cipherInwards(M));
         assertEquals(W, rotor.cipherInwards(Z));
 
-        rotor.setPosition(I);
+        rotor.changePosition(I);
         assertEquals(N, rotor.cipherInwards(A));
         assertEquals(S, rotor.cipherInwards(M));
         assertEquals(I, rotor.cipherInwards(Z));
 
-        rotor.setPosition(J);
+        rotor.changePosition(J);
         assertEquals(Q, rotor.cipherInwards(A));
         assertEquals(Z, rotor.cipherInwards(M));
         assertEquals(M, rotor.cipherInwards(Z));
 
-        rotor.setPosition(K);
+        rotor.changePosition(K);
         assertEquals(D, rotor.cipherInwards(A));
         assertEquals(R, rotor.cipherInwards(M));
         assertEquals(P, rotor.cipherInwards(Z));
 
-        rotor.setPosition(L);
+        rotor.changePosition(L);
         assertEquals(I, rotor.cipherInwards(A));
         assertEquals(G, rotor.cipherInwards(M));
         assertEquals(C, rotor.cipherInwards(Z));
 
-        rotor.setPosition(M);
+        rotor.changePosition(M);
         assertEquals(C, rotor.cipherInwards(A));
         assertEquals(Q, rotor.cipherInwards(M));
         assertEquals(H, rotor.cipherInwards(Z));
 
-        rotor.setPosition(N);
+        rotor.changePosition(N);
         assertEquals(J, rotor.cipherInwards(A));
         assertEquals(W, rotor.cipherInwards(M));
         assertEquals(B, rotor.cipherInwards(Z));
 
-        rotor.setPosition(O);
+        rotor.changePosition(O);
         assertEquals(K, rotor.cipherInwards(A));
         assertEquals(Q, rotor.cipherInwards(M));
         assertEquals(I, rotor.cipherInwards(Z));
 
-        rotor.setPosition(P);
+        rotor.changePosition(P);
         assertEquals(S, rotor.cipherInwards(A));
         assertEquals(V, rotor.cipherInwards(M));
         assertEquals(J, rotor.cipherInwards(Z));
 
-        rotor.setPosition(Q);
+        rotor.changePosition(Q);
         assertEquals(H, rotor.cipherInwards(A));
         assertEquals(W, rotor.cipherInwards(M));
         assertEquals(R, rotor.cipherInwards(Z));
 
-        rotor.setPosition(R);
+        rotor.changePosition(R);
         assertEquals(D, rotor.cipherInwards(A));
         assertEquals(O, rotor.cipherInwards(M));
         assertEquals(G, rotor.cipherInwards(Z));
 
-        rotor.setPosition(S);
+        rotor.changePosition(S);
         assertEquals(A, rotor.cipherInwards(A));
         assertEquals(T, rotor.cipherInwards(M));
         assertEquals(C, rotor.cipherInwards(Z));
 
-        rotor.setPosition(T);
+        rotor.changePosition(T);
         assertEquals(W, rotor.cipherInwards(A));
         assertEquals(N, rotor.cipherInwards(M));
         assertEquals(Z, rotor.cipherInwards(Z));
 
-        rotor.setPosition(U);
+        rotor.changePosition(U);
         assertEquals(G, rotor.cipherInwards(A));
         assertEquals(J, rotor.cipherInwards(M));
         assertEquals(V, rotor.cipherInwards(Z));
 
-        rotor.setPosition(V);
+        rotor.changePosition(V);
         assertEquals(N, rotor.cipherInwards(A));
         assertEquals(V, rotor.cipherInwards(M));
         assertEquals(F, rotor.cipherInwards(Z));
 
-        rotor.setPosition(W);
+        rotor.changePosition(W);
         assertEquals(F, rotor.cipherInwards(A));
         assertEquals(Z, rotor.cipherInwards(M));
         assertEquals(M, rotor.cipherInwards(Z));
 
-        rotor.setPosition(X);
+        rotor.changePosition(X);
         assertEquals(U, rotor.cipherInwards(A));
         assertEquals(C, rotor.cipherInwards(M));
         assertEquals(E, rotor.cipherInwards(Z));
 
-        rotor.setPosition(Y);
+        rotor.changePosition(Y);
         assertEquals(E, rotor.cipherInwards(A));
         assertEquals(P, rotor.cipherInwards(M));
         assertEquals(T, rotor.cipherInwards(Z));
 
-        rotor.setPosition(Z);
+        rotor.changePosition(Z);
         assertEquals(K, rotor.cipherInwards(A));
         assertEquals(U, rotor.cipherInwards(M));
         assertEquals(D, rotor.cipherInwards(Z));
@@ -245,17 +245,17 @@ class RotorTest {
 
     @Test
     void cipherOutwardsInDifferentPositionsWithDefaultRingSetting() {
-        rotor.setPosition(B);
+        rotor.changePosition(B);
         assertEquals(V, rotor.cipherOutwards(A));
         assertEquals(J, rotor.cipherOutwards(M));
         assertEquals(T, rotor.cipherOutwards(Z));
 
-        rotor.setPosition(M);
+        rotor.changePosition(M);
         assertEquals(Q, rotor.cipherOutwards(A));
         assertEquals(C, rotor.cipherOutwards(M));
         assertEquals(S, rotor.cipherOutwards(Z));
 
-        rotor.setPosition(Z);
+        rotor.changePosition(Z);
         assertEquals(K, rotor.cipherOutwards(A));
         assertEquals(F, rotor.cipherOutwards(M));
         assertEquals(P, rotor.cipherOutwards(Z));
@@ -267,7 +267,7 @@ class RotorTest {
         Letter[] expectedLetters = {K,F,L,N,G,M,H,E,R,W,A,O,U,P,X,Z,I,Y,V,T,Q,B,J,C,S,D};
         Letter actual = A;
 
-        rotor.setRingSetting(B);
+        rotor.changeRingSetting(B);
 
         for (Letter expected : expectedLetters) {
             assertEquals(expected, rotor.cipherInwards(actual));
@@ -277,38 +277,38 @@ class RotorTest {
 
     @Test
     void cipherInwardsDifferentPositionsAndRingSettings() {
-        rotor.setRingSetting(M);
-        rotor.setPosition(A);
+        rotor.changeRingSetting(M);
+        rotor.changePosition(A);
         assertEquals(K, rotor.cipherInwards(A));
         assertEquals(Q, rotor.cipherInwards(M));
         assertEquals(I, rotor.cipherInwards(Z));
 
-        rotor.setRingSetting(M);
-        rotor.setPosition(G);
+        rotor.changeRingSetting(M);
+        rotor.changePosition(G);
         assertEquals(G, rotor.cipherInwards(A));
         assertEquals(J, rotor.cipherInwards(M));
         assertEquals(V, rotor.cipherInwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(A);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(A);
         assertEquals(J, rotor.cipherInwards(A));
         assertEquals(V, rotor.cipherInwards(M));
         assertEquals(D, rotor.cipherInwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(N);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(N);
         assertEquals(K, rotor.cipherInwards(A));
         assertEquals(Q, rotor.cipherInwards(M));
         assertEquals(I, rotor.cipherInwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(R);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(R);
         assertEquals(A, rotor.cipherInwards(A));
         assertEquals(T, rotor.cipherInwards(M));
         assertEquals(C, rotor.cipherInwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(Z);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(Z);
         assertEquals(E, rotor.cipherInwards(A));
         assertEquals(O, rotor.cipherInwards(M));
         assertEquals(J, rotor.cipherInwards(Z));
@@ -320,7 +320,7 @@ class RotorTest {
         Letter[] actualLetters = {S,I,F,D,A,L,T,M,C,N,U,P,V,X,Q,W,R,O,B,G,K,Y,E,Z,H,J};
         Letter expected = A;
 
-        rotor.setRingSetting(L);
+        rotor.changeRingSetting(L);
 
         for (Letter actual : actualLetters) {
             assertEquals(expected, rotor.cipherOutwards(actual));
@@ -330,38 +330,38 @@ class RotorTest {
 
     @Test
     void cipherOutwardsDifferentPositionsAndRingSettings() {
-        rotor.setRingSetting(M);
-        rotor.setPosition(A);
+        rotor.changeRingSetting(M);
+        rotor.changePosition(A);
         assertEquals(Y, rotor.cipherOutwards(A));
         assertEquals(G, rotor.cipherOutwards(M));
         assertEquals(W, rotor.cipherOutwards(Z));
 
-        rotor.setRingSetting(M);
-        rotor.setPosition(G);
+        rotor.changeRingSetting(M);
+        rotor.changePosition(G);
         assertEquals(X, rotor.cipherOutwards(A));
         assertEquals(L, rotor.cipherOutwards(M));
         assertEquals(R, rotor.cipherOutwards(Z));
 
-        rotor.setRingSetting(M);
-        rotor.setPosition(V);
+        rotor.changeRingSetting(M);
+        rotor.changePosition(V);
         assertEquals(Q, rotor.cipherOutwards(A));
         assertEquals(Z, rotor.cipherOutwards(M));
         assertEquals(M, rotor.cipherOutwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(F);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(F);
         assertEquals(Z, rotor.cipherOutwards(A));
         assertEquals(M, rotor.cipherOutwards(M));
         assertEquals(X, rotor.cipherOutwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(R);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(R);
         assertEquals(A, rotor.cipherOutwards(A));
         assertEquals(I, rotor.cipherOutwards(M));
         assertEquals(F, rotor.cipherOutwards(Z));
 
-        rotor.setRingSetting(Z);
-        rotor.setPosition(G);
+        rotor.changeRingSetting(Z);
+        rotor.changePosition(G);
         assertEquals(I, rotor.cipherOutwards(A));
         assertEquals(E, rotor.cipherOutwards(M));
         assertEquals(Y, rotor.cipherOutwards(Z));

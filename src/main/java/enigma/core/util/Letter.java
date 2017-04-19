@@ -4,7 +4,7 @@ package enigma.core.util;
  * The alphabet used by the Enigma Machine.
  * This class hides all the low level details about dealing with indexes, shifts, conversions, etc.
  *
- * @author diegodc 2017-02-02
+ * @author diegodc 2017-02-02.
  */
 public enum Letter {
 

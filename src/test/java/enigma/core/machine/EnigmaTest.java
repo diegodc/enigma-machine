@@ -1,9 +1,11 @@
 package enigma.core.machine;
 
+import enigma.factory.M3Rotors;
+import enigma.factory.M4Rotors;
+import enigma.factory.Reflectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static enigma.factory.DeviceFactory.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -18,7 +20,10 @@ class EnigmaTest {
 
     @BeforeEach
     void setUp() {
-        enigma = new Enigma(B(), I(), II(), III());
+        enigma = new Enigma(Reflectors.B.get(),
+                            M3Rotors.I.get(),
+                            M3Rotors.II.get(),
+                            M3Rotors.III.get());
     }
 
     @Test
@@ -213,7 +218,10 @@ class EnigmaTest {
             Plug pairs: 	AM FI NV PS TU WZ
             Key = ABL
          */
-        enigma = new Enigma(A(), II(), I(), III())
+        enigma = new Enigma(Reflectors.A.get(),
+                            M3Rotors.II.get(),
+                            M3Rotors.I.get(),
+                            M3Rotors.III.get())
                 .changeRingSettings("XMV")
                 .changeRotorsPositions("ABL")
                 .setPlugboard("AM FI NV PS TU WZ");
@@ -244,7 +252,10 @@ class EnigmaTest {
             Part One Key = BLA
             Part Two Key = LSD
          */
-        enigma = new Enigma(B(), II(), IV(), V())
+        enigma = new Enigma(Reflectors.B.get(),
+                            M3Rotors.II.get(),
+                            M3Rotors.IV.get(),
+                            M3Rotors.V.get())
                 .changeRingSettings("BUL")
                 .changeRotorsPositions("BLA")
                 .setPlugboard("AV BS CG DL FU HZ IN KM OW RX");
@@ -274,7 +285,10 @@ class EnigmaTest {
             Plug pairs: 	AV BF DR IM OS WY
             Key = AQO
          */
-        enigma = new Enigma(B(), VII(), VI(), V())
+        enigma = new Enigma(Reflectors.B.get(),
+                            M3Rotors.VII.get(),
+                            M3Rotors.VI.get(),
+                            M3Rotors.V.get())
                 .changeRingSettings("AXP")
                 .changeRotorsPositions("AQO")
                 .setPlugboard("AV BF DR IM OS WY");
@@ -297,7 +311,10 @@ class EnigmaTest {
 
             Key = UZV
          */
-        enigma = new Enigma(B(), III(), VI(), VIII())
+        enigma = new Enigma(Reflectors.B.get(),
+                            M3Rotors.III.get(),
+                            M3Rotors.VI.get(),
+                            M3Rotors.VIII.get())
                 .changeRingSettings("AHM")
                 .changeRotorsPositions("UZV")
                 .setPlugboard("AN EZ HK IJ LR MQ OT PV SW UX");
@@ -317,7 +334,11 @@ class EnigmaTest {
             Plug pairs: 	AT BL DF GJ HM NW OP QY RZ VX
             Key: V J N A
          */
-        enigma = new Enigma(thinB(), beta(), II(), IV(), I())
+        enigma = new Enigma(Reflectors.ThinB.get(),
+                            M4Rotors.Beta.get(),
+                            M3Rotors.II.get(),
+                            M3Rotors.IV.get(),
+                            M3Rotors.I.get())
                 .changeRingSettings("AAAV")
                 .changeRotorsPositions("VJNA")
                 .setPlugboard("AT BL DF GJ HM NW OP QY RZ VX");
@@ -341,7 +362,11 @@ class EnigmaTest {
             Plug pairs: 	AE BF CM DQ HU JN LX PR SZ VW
             Key: C D S Z
          */
-        enigma = new Enigma(thinC(), beta(), V(), VI(), VIII())
+        enigma = new Enigma(Reflectors.ThinC.get(),
+                            M4Rotors.Beta.get(),
+                            M3Rotors.V.get(),
+                            M3Rotors.VI.get(),
+                            M3Rotors.VIII.get())
                 .changeRingSettings("EPEL")
                 .changeRotorsPositions("CDSZ")
                 .setPlugboard("AE BF CM DQ HU JN LX PR SZ VW");
@@ -367,7 +392,11 @@ class EnigmaTest {
             Plug pairs: 	CH EJ NV OU TY LG SZ PK DI QB
             Key: Y V O S
          */
-        enigma = new Enigma(thinB(), gamma(), IV(), III(), VIII())
+        enigma = new Enigma(Reflectors.ThinB.get(),
+                            M4Rotors.Gamma.get(),
+                            M3Rotors.IV.get(),
+                            M3Rotors.III.get(),
+                            M3Rotors.VIII.get())
                 .changeRingSettings("AACU")
                 .changeRotorsPositions("YVOS")
                 .setPlugboard("CH EJ NV OU TY LG SZ PK DI QB");
@@ -380,6 +409,10 @@ class EnigmaTest {
     @Test
     void plugboardSettingsAreChecked() {
         assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A"));
+        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("ABC"));
+        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("AB C"));
+        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A BC"));
+        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A B"));
     }
 
 }

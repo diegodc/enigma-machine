@@ -1,44 +1,45 @@
 package enigma.core.machine;
 
 import enigma.core.devices.NotchedRotor;
+import enigma.core.devices.Rotor;
 
 /**
  * Responsible for the rotor's stepping motion.
  *
  * @author diegodc 2017-02-03.
  */
-public class RotorMechanism {
+class RotorMechanism {
 
-    private NotchedRotor leftRotor;
+    private Rotor leftRotor;
     private NotchedRotor middleRotor;
     private NotchedRotor rightRotor;
 
-    private boolean middleRotorPawlEngaged;
-    private boolean leftRotorPawlEngaged;
+    private boolean shouldAdvanceMiddleRotor;
+    private boolean shouldAdvanceLeftRotor;
 
-    public RotorMechanism(NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
+    RotorMechanism(Rotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
         this.leftRotor = leftRotor;
         this.middleRotor = middleRotor;
         this.rightRotor = rightRotor;
     }
 
-    public void step() {
-        updatePawlPosition();
+    void step() {
+        update();
         stepRotors();
     }
 
-    private void updatePawlPosition() {
-        middleRotorPawlEngaged = rightRotor.isAtTurnoverPosition();
-        leftRotorPawlEngaged = middleRotor.isAtTurnoverPosition();
+    private void update() {
+        shouldAdvanceMiddleRotor = rightRotor.isAtTurnoverPosition();
+        shouldAdvanceLeftRotor = middleRotor.isAtTurnoverPosition();
     }
 
     private void stepRotors() {
         rightRotor.step();
 
-        if (middleRotorPawlEngaged)
+        if (shouldAdvanceMiddleRotor)
             middleRotor.step();
 
-        if (leftRotorPawlEngaged) {
+        if (shouldAdvanceLeftRotor) {
             middleRotor.step();
             leftRotor.step();
         }

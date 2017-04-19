@@ -10,24 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the top level class of the enigma system.
+ * This is the top level class of the enigma core system.
  *
- * @author diegodc 2017-02-17
+ * @author diegodc 2017-02-17.
  */
 public class Enigma {
 
+    private int numberOfRotors;
+    private final List<Rotor> rotors = new ArrayList<>();
     private final Plugboard plugboard = new Plugboard();
     private final Reflector reflector;
     private final RotorMechanism mechanism;
 
-    private int numberOfRotors;
-    private final List<Rotor> rotors = new ArrayList<>();
+    public Enigma(Reflector reflector,
+                  NotchedRotor leftRotor,
+                  NotchedRotor middleRotor,
+                  NotchedRotor rightRotor) {
 
-    private StringBuilder cipherText;
-
-    public Enigma(Reflector reflector, NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
-        this.reflector = reflector;
         numberOfRotors = 3;
+
+        this.reflector = reflector;
+
         rotors.add(leftRotor);
         rotors.add(middleRotor);
         rotors.add(rightRotor);
@@ -35,9 +38,16 @@ public class Enigma {
         mechanism = new RotorMechanism(leftRotor, middleRotor, rightRotor);
     }
 
-    public Enigma(Reflector thinReflector, Rotor thin, NotchedRotor leftRotor, NotchedRotor middleRotor, NotchedRotor rightRotor) {
-        this.reflector = thinReflector;
+    public Enigma(Reflector thinReflector,
+                  Rotor thin,
+                  NotchedRotor leftRotor,
+                  NotchedRotor middleRotor,
+                  NotchedRotor rightRotor) {
+
         numberOfRotors = 4;
+
+        reflector = thinReflector;
+
         rotors.add(thin);
         rotors.add(leftRotor);
         rotors.add(middleRotor);
@@ -47,54 +57,59 @@ public class Enigma {
     }
 
     public String cipherMessage(String plainText) {
-
-        cipherText = new StringBuilder(plainText.length());
+        StringBuilder cipherText = new StringBuilder(plainText.length());
 
         for (char letter : plainText.toCharArray()) {
             mechanism.step();
-            cipher(letter);
+            cipherText.append(cipher(letter));
         }
 
         return cipherText.toString();
     }
 
-    private void cipher(char plainLetter) {
+    private Letter cipher(char plainLetter) {
         Letter letter = Letter.fromChar(plainLetter);
 
-        letter = plugboard.cipher(letter);
+        letter = plugboard.swap(letter);
+        letter = cipherInwards(letter);
+        letter = reflector.reflect(letter);
+        letter = cipherOutwards(letter);
+        letter = plugboard.swap(letter);
 
+        return letter;
+    }
+
+    private Letter cipherInwards(Letter letter) {
         for (int i = numberOfRotors -1; i >= 0; i--)
             letter = rotors.get(i).cipherInwards(letter);
+        return letter;
+    }
 
-        letter = reflector.reflect(letter);
-
+    private Letter cipherOutwards(Letter letter) {
         for (Rotor rotor : rotors)
             letter = rotor.cipherOutwards(letter);
-
-        letter = plugboard.cipher(letter);
-
-        cipherText.append(letter);
+        return letter;
     }
 
     public String getRotorsPositions() {
-        String positions = "";
+        StringBuilder positions = new StringBuilder();
         for (Rotor rotor : rotors)
-            positions += rotor.getPosition().toString();
-        return positions;
+            positions.append(rotor.currentPosition().asChar());
+        return positions.toString();
     }
 
     public String getRingSettings() {
-        String ringSettings = "";
+        StringBuilder settings = new StringBuilder();
         for (Rotor rotor : rotors)
-            ringSettings += rotor.getRingSetting().toString();
-        return ringSettings;
+            settings.append(rotor.ringSetting().asChar());
+        return settings.toString();
     }
 
     public Enigma changeRotorsPositions(String positions) {
         validateRotorSettings(positions);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.setPosition(Letter.fromChar(positions.charAt(i)));
+            rotor.changePosition(Letter.fromChar(positions.charAt(i)));
             i++;
         }
         return this;
@@ -109,20 +124,30 @@ public class Enigma {
         validateRotorSettings(ringsSettings);
         int i = 0;
         for (Rotor rotor : rotors) {
-            rotor.setRingSetting(Letter.fromChar(ringsSettings.charAt(i)));
+            rotor.changeRingSetting(Letter.fromChar(ringsSettings.charAt(i)));
             i++;
         }
         return this;
     }
 
     public Enigma setPlugboard(String settings) {
-        plugboard.reset();
+        plugboard.disconnectAllPairs();
         validatePlugboardSettings(settings);
-        String[] pairs = settings.split(" ");
+
+        String[] pairs = parseLetterPairs(settings);
+        setPlugboardPairs(pairs);
+
+        return this;
+    }
+
+    private void setPlugboardPairs(String[] pairs) {
         for (String pair : pairs) {
             setPair(pair);
         }
-        return this;
+    }
+
+    private String[] parseLetterPairs(String settings) {
+        return settings.split(" ");
     }
 
     private void validatePlugboardSettings(String settings) {
@@ -133,13 +158,13 @@ public class Enigma {
     private void setPair(String pair) {
         char letter = pair.charAt(0);
         char pairedLetter = pair.charAt(1);
-        plugboard.pairLetters(Letter.fromChar(letter), Letter.fromChar(pairedLetter));
+        plugboard.connect(Letter.fromChar(letter), Letter.fromChar(pairedLetter));
     }
 
     public void resetSettings() {
         changeRotorsPositions("AAA");
         changeRingSettings("AAA");
-        plugboard.reset();
+        plugboard.disconnectAllPairs();
     }
 
 }

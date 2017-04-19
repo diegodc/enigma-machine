@@ -14,7 +14,10 @@ Example:
         Plug pairs:     AM FI NV PS TU WZ
         Key:            A B L
     */
-    enigma = new Enigma(reflectorA(), rotorII(), rotorI(), rotorIII())
+    enigma = new Enigma(Reflectors.A.get(),
+                        M3Rotors.II.get(),
+                        M3Rotors.I.get(),
+                        M3Rotors.III.get())
              .changeRingSettings("XMV")
              .changeRotorsPositions("ABL")
              .setPlugboard("AM FI NV PS TU WZ");

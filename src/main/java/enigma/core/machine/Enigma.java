@@ -17,19 +17,19 @@ import java.util.List;
 public class Enigma {
 
     private int numberOfRotors;
-    private final List<Rotor> rotors = new ArrayList<>();
-    private final Plugboard plugboard = new Plugboard();
-    private final Reflector reflector;
     private final RotorMechanism mechanism;
+    private final List<Rotor> rotors = new ArrayList<>();
+    private final Reflector reflector;
+    private final Plugboard plugboard = new Plugboard();
 
-    public Enigma(Reflector reflector,
+    public Enigma(Reflector wideReflector,
                   NotchedRotor leftRotor,
                   NotchedRotor middleRotor,
                   NotchedRotor rightRotor) {
 
-        numberOfRotors = 3;
+        reflector = wideReflector;
 
-        this.reflector = reflector;
+        numberOfRotors = 3;
 
         rotors.add(leftRotor);
         rotors.add(middleRotor);
@@ -44,9 +44,9 @@ public class Enigma {
                   NotchedRotor middleRotor,
                   NotchedRotor rightRotor) {
 
-        numberOfRotors = 4;
-
         reflector = thinReflector;
+
+        numberOfRotors = 4;
 
         rotors.add(thin);
         rotors.add(leftRotor);
@@ -117,7 +117,7 @@ public class Enigma {
 
     private void validateRotorSettings(String settings) {
         if (!settings.matches("[A-Z]{" + numberOfRotors + "}"))
-            throw new IllegalArgumentException();
+            throw new InvalidSetting("Invalid rotor setting: " + settings);
     }
 
     public Enigma changeRingSettings(String ringsSettings) {
@@ -134,10 +134,24 @@ public class Enigma {
         plugboard.disconnectAllPairs();
         validatePlugboardSettings(settings);
 
-        String[] pairs = parseLetterPairs(settings);
-        setPlugboardPairs(pairs);
+        setPlugboardPairs(parseLetterPairs(settings));
 
         return this;
+    }
+
+    public void resetSettings() {
+        changeRotorsPositions("AAA");
+        changeRingSettings("AAA");
+        plugboard.disconnectAllPairs();
+    }
+
+    private void validatePlugboardSettings(String settings) {
+        if (!settings.matches("[A-Z]{2}(\\s[A-Z]{2})*"))
+            throw new InvalidSetting("Invalid plugboard setting: " + settings);
+    }
+
+    private String[] parseLetterPairs(String settings) {
+        return settings.split(" ");
     }
 
     private void setPlugboardPairs(String[] pairs) {
@@ -146,25 +160,17 @@ public class Enigma {
         }
     }
 
-    private String[] parseLetterPairs(String settings) {
-        return settings.split(" ");
-    }
-
-    private void validatePlugboardSettings(String settings) {
-        if (!settings.matches("[A-Z]{2}(\\s[A-Z]{2})*"))
-            throw new IllegalArgumentException();
-    }
-
     private void setPair(String pair) {
-        char letter = pair.charAt(0);
-        char pairedLetter = pair.charAt(1);
-        plugboard.connect(Letter.fromChar(letter), Letter.fromChar(pairedLetter));
+        Letter letter1 = Letter.fromChar(pair.charAt(0));
+        Letter letter2 = Letter.fromChar(pair.charAt(1));
+
+        plugboard.connect(letter1, letter2);
     }
 
-    public void resetSettings() {
-        changeRotorsPositions("AAA");
-        changeRingSettings("AAA");
-        plugboard.disconnectAllPairs();
+    public class InvalidSetting extends RuntimeException {
+        public InvalidSetting(String message) {
+            super(message);
+        }
     }
 
 }

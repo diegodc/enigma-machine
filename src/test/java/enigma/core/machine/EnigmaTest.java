@@ -33,19 +33,41 @@ class EnigmaTest {
     }
 
     @Test
+    void changeRotorsPositions() {
+        enigma.changeRotorsPositions("POS");
+        assertEquals("POS", enigma.getRotorsPositions());
+
+        enigma.changeRotorsPositions("ZZZ");
+        assertEquals("ZZZ", enigma.getRotorsPositions());
+
+        enigma.changeRotorsPositions("TDD");
+        assertEquals("TDD", enigma.getRotorsPositions());
+
+        enigma.changeRotorsPositions("AAA");
+        assertEquals("AAA", enigma.getRotorsPositions());
+    }
+
+    @Test
+    void changeRingSettings() {
+        enigma.changeRingSettings("RGN");
+        assertEquals("RGN", enigma.getRingSettings());
+
+        enigma.changeRingSettings("ZZZ");
+        assertEquals("ZZZ", enigma.getRingSettings());
+
+        enigma.changeRingSettings("ROT");
+        assertEquals("ROT", enigma.getRingSettings());
+
+        enigma.changeRingSettings("AAA");
+        assertEquals("AAA", enigma.getRingSettings());
+    }
+
+    @Test
     void cipherLetterInInitialSetting() {
         /* tested with Enigma Emulator http://enigma.louisedade.co.uk */
         String plainText = "A";
         String expectedCipherText = "B";
         assertEquals(expectedCipherText, enigma.cipherMessage(plainText));
-    }
-
-    @Test
-    void cipherStringInInitialSetting() {
-        /* tested with Enigma Emulator http://enigma.louisedade.co.uk */
-        String plainText = "TEST";
-        String cipherText = "OLPF";
-        assertEquals(cipherText, enigma.cipherMessage(plainText));
     }
 
     @Test
@@ -58,14 +80,6 @@ class EnigmaTest {
 
     @Test
     void cipherMessageInInitialSetting() {
-        /* tested with Enigma Emulator http://enigma.louisedade.co.uk */
-        String plainText = "TEST";
-        String cipherText = "OLPF";
-        assertEquals(cipherText, enigma.cipherMessage(plainText));
-    }
-
-    @Test
-    void cipherAnotherMessageInInitialSetting() {
         /* tested with Enigma Emulator http://enigma.louisedade.co.uk */
         String plainText = "THISISATEXTMESSAGE";
         String cipherText = "OPGNDXCRWRMNLNECJZ";
@@ -83,24 +97,11 @@ class EnigmaTest {
     @Test
     void cipherMessageInInitialSettingWithDoubleStepSequence() {
         /* tested with Enigma Emulator http://enigma.louisedade.co.uk */
-        String plainText = "THISISALONGERENIGMAMESSAGEWILLCAUSEADOUBLESTEPSEQUENCEINTHEROTORMECHANISMTESTINGTHEMOVEMENTOFALLROTORS";
-        String cipherText = "OPGNDXCGMHUTIBOKJDPYYILOLZOVGWRGMHZLCFGQYUYMVSWCBJZMQXMYWKBTFIWLPTTUOYKFYSDWWJXKOGHWNIYHVKHPEWOPTKYNPE";
+        String plainText = "THISISALONGERENIGMAMESSAGETHATWILLCAUSEADOUBLESTEPSEQUENCEINTHE" +
+                "ROTORMECHANISMTESTINGTHEMOVEMENTOFALLROTORS";
+        String cipherText = "OPGNDXCGMHUTIBOKJDPYYILOLZGACJDXOWULFJNNIFVZGTWRAFMHCZYYETUXJK" +
+                "PLFEJLDULKGJLWIMMNODWEEGYHNWPXFOUXXEVHPVFENX";
         assertEquals(cipherText, enigma.cipherMessage(plainText));
-    }
-
-    @Test
-    void changeRotorsPositions() {
-        enigma.changeRotorsPositions("POS");
-        assertEquals("POS", enigma.getRotorsPositions());
-
-        enigma.changeRotorsPositions("ZZZ");
-        assertEquals("ZZZ", enigma.getRotorsPositions());
-
-        enigma.changeRotorsPositions("TDD");
-        assertEquals("TDD", enigma.getRotorsPositions());
-
-        enigma.changeRotorsPositions("AAA");
-        assertEquals("AAA", enigma.getRotorsPositions());
     }
 
     @Test
@@ -131,21 +132,6 @@ class EnigmaTest {
         String plainText = "RZFOGFYHPL";
         String cipherText = "TURNSTHREE";
         assertEquals(cipherText, enigma.cipherMessage(plainText));
-    }
-
-    @Test
-    void changeRingSettings() {
-        enigma.changeRingSettings("RGN");
-        assertEquals("RGN", enigma.getRingSettings());
-
-        enigma.changeRingSettings("ZZZ");
-        assertEquals("ZZZ", enigma.getRingSettings());
-
-        enigma.changeRingSettings("ROT");
-        assertEquals("ROT", enigma.getRingSettings());
-
-        enigma.changeRingSettings("AAA");
-        assertEquals("AAA", enigma.getRingSettings());
     }
 
     @Test
@@ -211,12 +197,13 @@ class EnigmaTest {
 
     @Test
     void originalMessageTestFromEnigmaManual() {
-        /*  Machine Settings for Enigma I/M3
-            Reflector: 	A
-            Wheel order: 	II I III
+        /*  Enigma user manual example
+            Machine Settings for Enigma I/M3
+            Reflector:      A
+            Wheel order:    II I III
             Ring positions: XMV
-            Plug pairs: 	AM FI NV PS TU WZ
-            Key = ABL
+            Plug pairs:     AM FI NV PS TU WZ
+            Key:            ABL
          */
         enigma = new Enigma(Reflectors.A.get(),
                             M3Rotors.II.get(),
@@ -226,31 +213,23 @@ class EnigmaTest {
                 .changeRotorsPositions("ABL")
                 .setPlugboard("AM FI NV PS TU WZ");
 
-        String plainText = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
-        String cipherText = "FEINDLIQEINFANTERIEKOLONNEBEOBAQTETXANFANGSUEDAUSGANGBAERWALDEXENDEDREIKMOSTWAERTSNEUSTADT";
-
+        String plainText = OriginalMessages.ENIGMA_MANUAL_PLAINTEXT;
+        String cipherText = OriginalMessages.ENIGMA_MANUAL_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
-    }
-
-    private void testCipherAndDecipher(String plainText, String cipherText) {
-        String key = enigma.getRotorsPositions();
-        assertEquals(plainText, enigma.cipherMessage(cipherText));
-
-        enigma.changeRotorsPositions(key);
-        assertEquals(cipherText, enigma.cipherMessage(plainText));
     }
 
     @Test
     void originalMessageTestOperationBarbarossa() {
         /*  Operation Barbarossa, 1941
-            Machine Settings for Enigma I/M3
-            Reflector: 	B
-            Wheel order: 	II IV V
-            Ring positions: B U L
-            Plug pairs: 	AV BS CG DL FU HZ IN KM OW RX
             Sent from the Russian front on 7th July 1941.
-            Part One Key = BLA
-            Part Two Key = LSD
+            Machine Settings for Enigma I/M3
+            Reflector:      B
+            Wheel order:    II IV V
+            Ring positions: B U L
+            Plug pairs:     AV BS CG DL FU HZ IN KM OW RX
+
+            Part One Key: BLA
+            Part Two Key: LSD
          */
         enigma = new Enigma(Reflectors.B.get(),
                             M3Rotors.II.get(),
@@ -260,18 +239,14 @@ class EnigmaTest {
                 .changeRotorsPositions("BLA")
                 .setPlugboard("AV BS CG DL FU HZ IN KM OW RX");
 
-        String plainTextPartOne = "EDPUDNRGYSZRCXNUYTPOMRMBOFKTBZREZKMLXLVEFGUEYSIOZVEQMIKUBPMMYLKLTTDEISMDICAGYKU" +
-                "ACTCDOMOHWXMUUIAUBSTSLRNBZSZWNRFXWFYSSXJZVIJHIDISHPRKLKAYUPADTXQSPINQMATLPIFSVKDASCTACDPBOPVHJK";
-        String cipherTextPartOne = "AUFKLXABTEILUNGXVONXKURTINOWAXKURTINOWAXNORDWESTLXSEBEZXSEBEZXUAFFLIEGERSTRASZ" +
-                "ERIQTUNGXDUBROWKIXDUBROWKIXOPOTSCHKAXOPOTSCHKAXUMXEINSAQTDREINULLXUHRANGETRETENXANGRIFFXINFXRGTX";
+        String plainTextPartOne = OriginalMessages.OPERATION_BARBAROSSA_PART1_PLAINTEXT;
+        String cipherTextPartOne = OriginalMessages.OPERATION_BARBAROSSA_PART1_CIPHERTEXT;
         testCipherAndDecipher(plainTextPartOne, cipherTextPartOne);
 
         enigma.changeRotorsPositions("LSD");
 
-        String plainTextPartTwo = "SFBWDNJUSEGQOBHKRTAREEZMWKPPRBXOHDROEQGBBGTQVPGVKBVVGBIMHUSZYDAJQIROAXSS" +
-                "SNREHYGGRPISEZBOVMQIEMMZCYSGQDGRERVBILEKXYQIRGIRQNRDNVRXCYYTNJR";
-        String cipherTextPartTwo = "DREIGEHTLANGSAMABERSIQERVORWAERTSXEINSSIEBENNULLSEQSXUHRXROEMXEINSXINFR" +
-                "GTXDREIXAUFFLIEGERSTRASZEMITANFANGXEINSSEQSXKMXKMXOSTWXKAMENECXK";
+        String plainTextPartTwo = OriginalMessages.OPERATION_BARBAROSSA_PART2_PLAINTEXT;
+        String cipherTextPartTwo = OriginalMessages.OPERATION_BARBAROSSA_PART2_CIPHERTEXT;
         testCipherAndDecipher(plainTextPartTwo, cipherTextPartTwo);
     }
 
@@ -279,11 +254,11 @@ class EnigmaTest {
     void originalMessageTestNorrkoping() {
         /*  Norrkoping Enigma M3 intercept Page 81
             Machine Settings for Enigma I/M3
-            Reflector: 	B
-            Wheel order: 	VII VI V
+            Reflector:      B
+            Wheel order:    VII VI V
             Ring positions: AXP
-            Plug pairs: 	AV BF DR IM OS WY
-            Key = AQO
+            Plug pairs:     AV BF DR IM OS WY
+            Key:            AQO
          */
         enigma = new Enigma(Reflectors.B.get(),
                             M3Rotors.VII.get(),
@@ -293,10 +268,8 @@ class EnigmaTest {
                 .changeRotorsPositions("AQO")
                 .setPlugboard("AV BF DR IM OS WY");
 
-        String plainText = "MSPOKQBHQLCMENJJXMYGPKKXWGXTWWXDNYZFQGEKDKSYPKLBBDPMSFUUWHYZLTVOWIOFHKOUZMLQF" +
-                "CFLVQGXOPWNEGWWQJLTFWAMENHBDBRBSYLMSNWYZOIE";
-        String cipherText = "VINRFINSRRRFLVONFDMMMOSTMITDUNKOAWERDONARBEITUQTXRBRECHENYHERANSCHLIESINNANM" +
-                "INEZRATUMSCIIFFEINSEINSQUSIEBENVIERNLUNACHTO";
+        String plainText = OriginalMessages.NORRKOPING_PLAINTEXT;
+        String cipherText = OriginalMessages.NORRKOPING_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
     }
 
@@ -304,12 +277,11 @@ class EnigmaTest {
     void navalEnigmaOriginalMessageTestScharnhorst() {
         /*  Scharnhorst (Konteradmiral Erich Bey), 1943
             Machine Settings for Enigma M3
-            Reflector: 	B
-            Wheel order: 	III VI VIII
+            Reflector:      B
+            Wheel order:    III VI VIII
             Ring positions: AHM
-            Plug pairs: 	AN EZ HK IJ LR MQ OT PV SW UX
-
-            Key = UZV
+            Plug pairs:     AN EZ HK IJ LR MQ OT PV SW UX
+            Key:            UZV
          */
         enigma = new Enigma(Reflectors.B.get(),
                             M3Rotors.III.get(),
@@ -319,8 +291,8 @@ class EnigmaTest {
                 .changeRotorsPositions("UZV")
                 .setPlugboard("AN EZ HK IJ LR MQ OT PV SW UX");
 
-        String plainText = "YKAENZAPMSCHZBFOCUVMRMDPYCOFHADZIZMEFXTHFLOLPZLFGGBOTGOXGRETDWTJIQHLMXVJWKZUASTR";
-        String cipherText = "STEUEREJTANAFJORDJANSTANDORTQUAAACCCVIERNEUNNEUNZWOFAHRTZWONULSMXXSCHARNHORSTHCO";
+        String plainText = OriginalMessages.SCHARNHORST_PLAINTEXT;
+        String cipherText = OriginalMessages.SCHARNHORST_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
     }
 
@@ -328,11 +300,11 @@ class EnigmaTest {
     void navalEnigmaOriginalMessageTestU264() {
         /*  U-264 (Kapitänleutnant Hartwig Looks), 1942
             Machine Settings for Enigma M4
-            Reflector: 	 Thin B
-            Wheel order: B II IV I
-            Ring positions:	A A A V
-            Plug pairs: 	AT BL DF GJ HM NW OP QY RZ VX
-            Key: V J N A
+            Reflector:      Thin B
+            Wheel order:    B II IV I
+            Ring positions: A A A V
+            Plug pairs:     AT BL DF GJ HM NW OP QY RZ VX
+            Key:            V J N A
          */
         enigma = new Enigma(Reflectors.ThinB.get(),
                             M4Rotors.Beta.get(),
@@ -343,12 +315,8 @@ class EnigmaTest {
                 .changeRotorsPositions("VJNA")
                 .setPlugboard("AT BL DF GJ HM NW OP QY RZ VX");
 
-        String plainText = "NCZWVUSXPNYMINHZXMQXSFWXWLKJAHSHNMCOCCAKUQPMKCSMHKSEINJUSBLKIOSXCKUBHMLLXCSJUSRRDV" +
-                "KOHULXWCCBGVLIYXEOAHXRHKKFVDREWEZLXOBAFGYUJQUKGRTVUKAMEURBVEKSUHHVOYHABCJWMAKLFKLMYFVNRIZRVVR" +
-                "TKOFDANJMOLBGFFLEOPRGTFLVRHOWOPBEKVWMUQFMPWPARMFHAGKXIIBG";
-        String cipherText = "VONVONJLOOKSJHFFTTTEINSEINSDREIZWOYYQNNSNEUNINHALTXXBEIANGRIFFUNTERWASSERGEDRUECK" +
-                "TYWABOSXLETZTERGEGNERSTANDNULACHTDREINULUHRMARQUANTONJOTANEUNACHTSEYHSDREIYZWOZWONULGRADYACHT" +
-                "SMYSTOSSENACHXEKNSVIERMBFAELLTYNNNNNNOOOVIERYSICHTEINSNULL";
+        String plainText = OriginalMessages.U264_MESSAGE_PLAINTEXT;
+        String cipherText = OriginalMessages.U264_MESSAGE_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
     }
 
@@ -356,11 +324,11 @@ class EnigmaTest {
     void navalEnigmaOriginalMessageTestDonitzMay1945() {
         /*  Message from Dönitz - 1 May 1945
             Machine Settings for Enigma M4
-            Reflector: 	Thin C
-            Wheel order: 	B V VI VIII
-            Ring positions:  E P E L
-            Plug pairs: 	AE BF CM DQ HU JN LX PR SZ VW
-            Key: C D S Z
+            Reflector:      Thin C
+            Wheel order:    B V VI VIII
+            Ring positions: E P E L
+            Plug pairs:     AE BF CM DQ HU JN LX PR SZ VW
+            Key:            C D S Z
          */
         enigma = new Enigma(Reflectors.ThinC.get(),
                             M4Rotors.Beta.get(),
@@ -371,14 +339,8 @@ class EnigmaTest {
                 .changeRotorsPositions("CDSZ")
                 .setPlugboard("AE BF CM DQ HU JN LX PR SZ VW");
 
-        String plainText = "LANOTCTOUARBBFPMHPHGCZXTDYGAHGUFXGEWKBLKGJWLQXXTGPJJAVTOCKZFSLPPQIHZFXOEBWIIEKFZLCLOAQJ" +
-                "ULJOYHSSMBBGWHZANVOIIPYRBRTDJQDJJOQKCXWDNBBTYVXLYTAPGVEATXSONPNYNQFUDBBHHVWEPYEYDOHNLXKZDNWRHDUWUJ" +
-                "UMWWVIIWZXIVIUQDRHYMNCYEFUAPNHOTKHKGDNPSAKNUAGHJZSMJBMHVTREQEDGXHLZWIFUSKDQVELNMIMITHBHDBWVHDFYHJO" +
-                "QIHORTDJDBWXEMEAYXGYQXOHFDMYUXXNOJAZRSGHPLWMLRECWWUTLRTTVLBHYOORGLGOWUXNXHMHYFAACQEKTHSJW";
-        String cipherText = "KRKRALLEXXFOLGENDESISTSOFORTBEKANNTZUGEBENXXICHHABEFOLGELNBEBEFEHLERHALTENXXJANSTERLED" +
-                "ESBISHERIGXNREICHSMARSCHALLSJGOERINGJSETZTDERFUEHRERSIEYHVRRGRZSSADMIRALYALSSEINENNACHFOLGEREINXSC" +
-                "HRIFTLSCHEVOLLMACHTUNTERWEGSXABSOFORTSOLLENSIESAEMTLICHEMASSNAHMENVERFUEGENYDIESICHAUSDERGEGENWAER" +
-                "TIGENLAGEERGEBENXGEZXREICHSLEITEIKKTULPEKKJBORMANNJXXOBXDXMMMDURNHFKSTXKOMXADMXUUUBOOIEXKP";
+        String plainText = OriginalMessages.DONITZ_MESSAGE_PLAINTEXT;
+        String cipherText = OriginalMessages.DONITZ_MESSAGE_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
     }
 
@@ -386,11 +348,11 @@ class EnigmaTest {
     void navalEnigmaOriginalMessageTestU534() {
         /*  U-534 P1030659
             Machine Settings for Enigma M4
-            Reflector: 	Thin B
-            Wheel order: 	G IV III VIII
-            Ring positions:  A A C U
-            Plug pairs: 	CH EJ NV OU TY LG SZ PK DI QB
-            Key: Y V O S
+            Reflector:      Thin B
+            Wheel order:    G IV III VIII
+            Ring positions: A A C U
+            Plug pairs:     CH EJ NV OU TY LG SZ PK DI QB
+            Key:            Y V O S
          */
         enigma = new Enigma(Reflectors.ThinB.get(),
                             M4Rotors.Gamma.get(),
@@ -401,18 +363,43 @@ class EnigmaTest {
                 .changeRotorsPositions("YVOS")
                 .setPlugboard("CH EJ NV OU TY LG SZ PK DI QB");
 
-        String plainText = "YUPOVEJTBKONNFSALTWELQAZJXTIRJLLISCSGXSHEJFYNZQDNQSUXPGFTJKWINGORYBJYADWNFCLPPNSLWUYBUQISXGQ";
-        String cipherText = "FFFDDDUUUAUSBILDUNGVONVONZWOSECHSUUUFLOTTXXTTTFFFZWODREIAUSGEZQESTETMITSSSSSSGCGXTTTFFFZWOQI";
+        String plainText = OriginalMessages.U534_MESSAGE_PLAINTEXT;
+        String cipherText = OriginalMessages.U534_MESSAGE_CIPHERTEXT;
         testCipherAndDecipher(plainText, cipherText);
     }
 
     @Test
+    void rotorSettingsAreChecked() {
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRingSettings("A"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRingSettings("1"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRingSettings("AA"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRingSettings("AAAA"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRingSettings("123"));
+
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRotorsPositions("A"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRotorsPositions("1"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRotorsPositions("AA"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRotorsPositions("AAAA"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.changeRotorsPositions("123"));
+    }
+
+    @Test
     void plugboardSettingsAreChecked() {
-        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A"));
-        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("ABC"));
-        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("AB C"));
-        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A BC"));
-        assertThrows(IllegalArgumentException.class, ()-> enigma.setPlugboard("A B"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("A"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("ABC"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("AB C"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("A BC"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("A B"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("AF BR A"));
+        assertThrows(Enigma.InvalidSetting.class, ()-> enigma.setPlugboard("12 34"));
+    }
+
+    private void testCipherAndDecipher(String plainText, String cipherText) {
+        String key = enigma.getRotorsPositions();
+        assertEquals(plainText, enigma.cipherMessage(cipherText));
+
+        enigma.changeRotorsPositions(key);
+        assertEquals(cipherText, enigma.cipherMessage(plainText));
     }
 
 }

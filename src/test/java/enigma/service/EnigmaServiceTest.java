@@ -1,10 +1,10 @@
 package enigma.service;
 
+import enigma.core.machine.OriginalMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * EnigmaServiceTest
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class EnigmaServiceTest {
 
-    EnigmaService enigmaService;
+    private EnigmaService enigmaService;
 
     @BeforeEach
     void setUp() {
@@ -21,131 +21,181 @@ class EnigmaServiceTest {
     }
 
     @Test
-    void testEnigmaM3Message() {
-        /*  Machine Settings for Enigma I/M3
-            Reflector: 	    A
-            Wheel order: 	II I III
+    void enigmaUserManualExample() {
+        /*  Enigma user manual example
+            Machine Settings for Enigma I/M3
+            Reflector:      A
+            Wheel order:    II I III
             Ring positions: XMV
-            Plug pairs: 	AM FI NV PS TU WZ
-            Key = ABL
+            Plug pairs:     AM FI NV PS TU WZ
+            Key:            ABL
          */
-        String plainText = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNV" +
-                "HVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
-
         MessageRequest messageRequest = new MessageRequest();
-
         messageRequest.machineModel = "M3";
         messageRequest.reflector = "A";
-        messageRequest.rotors = "II I III";
+        messageRequest.wheelOrder = "II I III";
         messageRequest.ringSettings = "XMV";
         messageRequest.plugboardSettings = "AM FI NV PS TU WZ";
         messageRequest.key = "ABL";
-        messageRequest.text = plainText;
+        messageRequest.plaintext = OriginalMessages.ENIGMA_MANUAL_PLAINTEXT;
 
-        String message = enigmaService.cipherMessage(messageRequest);
-
-        String cipherText = "FEINDLIQEINFANTERIEKOLONNEBEOBAQTETXANFA" +
-                "NGSUEDAUSGANGBAERWALDEXENDEDREIKMOSTWAERTSNEUSTADT";
-
-        assertEquals(cipherText, message);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.ENIGMA_MANUAL_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
     }
 
     @Test
-    void testEnigmaM4Message() {
+    void originalMessageTestOperationBarbarossa() {
+        /*  Operation Barbarossa, 1941
+            Sent from the Russian front on 7th July 1941.
+            Machine Settings for Enigma I/M3
+            Reflector:      B
+            Wheel order:    II IV V
+            Ring positions: BUL
+            Plug pairs:     AV BS CG DL FU HZ IN KM OW RX
+
+            Part One Key: BLA
+            Part Two Key: LSD
+         */
+        MessageRequest messageRequest = new MessageRequest();
+        messageRequest.machineModel = "M3";
+        messageRequest.reflector = "B";
+        messageRequest.wheelOrder = "II IV V";
+        messageRequest.ringSettings = "BUL";
+        messageRequest.plugboardSettings = "AV BS CG DL FU HZ IN KM OW RX";
+        messageRequest.key = "BLA";
+        messageRequest.plaintext = OriginalMessages.OPERATION_BARBAROSSA_PART1_PLAINTEXT;
+
+        String cipherMessagePartI = enigmaService.cipherMessage(messageRequest);
+        String expectedPartI = OriginalMessages.OPERATION_BARBAROSSA_PART1_CIPHERTEXT;
+        assertEquals(expectedPartI, cipherMessagePartI);
+
+        messageRequest.key = "LSD";
+        messageRequest.plaintext = OriginalMessages.OPERATION_BARBAROSSA_PART2_PLAINTEXT;
+
+        String cipherMessagePartII = enigmaService.cipherMessage(messageRequest);
+        String expectedPartII = OriginalMessages.OPERATION_BARBAROSSA_PART2_CIPHERTEXT;
+        assertEquals(expectedPartII, cipherMessagePartII);
+    }
+
+    @Test
+    void originalMessageTestNorrkoping() {
+        /*  Norrkoping Enigma M3 intercept Page 81
+            Machine Settings for Enigma I/M3
+            Reflector:      B
+            Wheel order:    VII VI V
+            Ring positions: AXP
+            Plug pairs:     AV BF DR IM OS WY
+            Key:            AQO
+         */
+        MessageRequest messageRequest = new MessageRequest();
+        messageRequest.machineModel = "M3";
+        messageRequest.reflector = "B";
+        messageRequest.wheelOrder = "VII VI V";
+        messageRequest.ringSettings = "AXP";
+        messageRequest.plugboardSettings = "AV BF DR IM OS WY";
+        messageRequest.key = "AQO";
+        messageRequest.plaintext = OriginalMessages.NORRKOPING_PLAINTEXT;
+
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.NORRKOPING_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
+    }
+
+    @Test
+    void navalEnigmaOriginalMessageTestScharnhorst() {
+        /*  Scharnhorst (Konteradmiral Erich Bey), 1943
+            Machine Settings for Enigma M3
+            Reflector:      B
+            Wheel order:    III VI VIII
+            Ring positions: AHM
+            Plug pairs:     AN EZ HK IJ LR MQ OT PV SW UX
+            Key:            UZV
+         */
+        MessageRequest messageRequest = new MessageRequest();
+        messageRequest.machineModel = "M3";
+        messageRequest.reflector = "B";
+        messageRequest.wheelOrder = "III VI VIII";
+        messageRequest.ringSettings = "AHM";
+        messageRequest.plugboardSettings = "AN EZ HK IJ LR MQ OT PV SW UX";
+        messageRequest.key = "UZV";
+        messageRequest.plaintext = OriginalMessages.SCHARNHORST_PLAINTEXT;
+
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.SCHARNHORST_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
+    }
+
+    @Test
+    void navalEnigmaOriginalMessageTestU264() {
         /*  U-264 (Kapitänleutnant Hartwig Looks), 1942
             Machine Settings for Enigma M4
-            Reflector: 	    Thin B
+            Reflector:      Thin B
             Wheel order:    B II IV I
-            Ring positions:	A A A V
-            Plug pairs: 	AT BL DF GJ HM NW OP QY RZ VX
+            Ring positions: A A A V
+            Plug pairs:     AT BL DF GJ HM NW OP QY RZ VX
             Key:            V J N A
          */
-        String plainText = "NCZWVUSXPNYMINHZXMQXSFWXWLKJAHSHNMCOCCAKUQPMKCSMHKSEINJUSBLKIOSXCKUBHMLLXCSJUSRRDV" +
-                "KOHULXWCCBGVLIYXEOAHXRHKKFVDREWEZLXOBAFGYUJQUKGRTVUKAMEURBVEKSUHHVOYHABCJWMAKLFKLMYFVNRIZRVVR" +
-                "TKOFDANJMOLBGFFLEOPRGTFLVRHOWOPBEKVWMUQFMPWPARMFHAGKXIIBG";
-
         MessageRequest messageRequest = new MessageRequest();
-
         messageRequest.machineModel = "M4";
         messageRequest.reflector = "ThinB";
-        messageRequest.rotors = "B II IV I";
+        messageRequest.wheelOrder = "Beta II IV I";
         messageRequest.ringSettings = "AAAV";
         messageRequest.plugboardSettings = "AT BL DF GJ HM NW OP QY RZ VX";
         messageRequest.key = "VJNA";
-        messageRequest.text = plainText;
+        messageRequest.plaintext = OriginalMessages.U264_MESSAGE_PLAINTEXT;
 
-        String message = enigmaService.cipherMessage(messageRequest);
-
-        String cipherText = "VONVONJLOOKSJHFFTTTEINSEINSDREIZWOYYQNNSNEUNINHALTXXBEIANGRIFFUNTERWASSERGEDRUECK" +
-                "TYWABOSXLETZTERGEGNERSTANDNULACHTDREINULUHRMARQUANTONJOTANEUNACHTSEYHSDREIYZWOZWONULGRADYACHT" +
-                "SMYSTOSSENACHXEKNSVIERMBFAELLTYNNNNNNOOOVIERYSICHTEINSNULL";
-
-        assertEquals(cipherText, message);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.U264_MESSAGE_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
     }
 
     @Test
-    void invalidEnigmaModels_ShouldThrowException() {
-        MessageRequest message = getDefaultM3Message();
-
-        message.machineModel = "I";
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(message));
-
-        message.machineModel = "";
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(message));
-
-        message.machineModel = null;
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(message));
-    }
-
-    @Test
-    void invalidReflectorType_ShouldThrowException() {
-        MessageRequest m3Message = getDefaultM3Message();
-
-        m3Message.reflector = "D";
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(m3Message));
-
-        m3Message.reflector = "";
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(m3Message));
-
-        m3Message.reflector = null;
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(m3Message));
-    }
-
-    @Test
-    void invalidRotorsType_ShouldThrowException() {
-        MessageRequest m3Message = getDefaultM3Message();
-
-        m3Message.rotors = "A";
-        assertThrows(EnigmaService.InvalidEnigmaMessage.class, ()-> enigmaService.cipherMessage(m3Message));
-
-    }
-
-    private MessageRequest getDefaultM3Message() {
+    void navalEnigmaOriginalMessageTestDonitzMay1945() {
+        /*  Message from Dönitz - 1 May 1945
+            Machine Settings for Enigma M4
+            Reflector:      Thin C
+            Wheel order:    B V VI VIII
+            Ring positions: E P E L
+            Plug pairs:     AE BF CM DQ HU JN LX PR SZ VW
+            Key:            C D S Z
+         */
         MessageRequest messageRequest = new MessageRequest();
-
-        messageRequest.machineModel = "M3";
-        messageRequest.reflector = "A";
-        messageRequest.rotors = "I II III";
-        messageRequest.ringSettings = "AAA";
-        messageRequest.plugboardSettings = "AB";
-        messageRequest.key = "AAA";
-        messageRequest.text = "TEST";
-
-        return messageRequest;
-    }
-
-    private MessageRequest getDefaultM4Message() {
-        MessageRequest messageRequest = new MessageRequest();
-
         messageRequest.machineModel = "M4";
-        messageRequest.reflector = "thinB";
-        messageRequest.rotors = "B I II III";
-        messageRequest.ringSettings = "AAAA";
-        messageRequest.plugboardSettings = "AB";
-        messageRequest.key = "AAAA";
-        messageRequest.text = "TEST";
+        messageRequest.reflector = "ThinC";
+        messageRequest.wheelOrder = "Beta V VI VIII";
+        messageRequest.ringSettings = "EPEL";
+        messageRequest.plugboardSettings = "AE BF CM DQ HU JN LX PR SZ VW";
+        messageRequest.key = "CDSZ";
+        messageRequest.plaintext = OriginalMessages.DONITZ_MESSAGE_PLAINTEXT;
 
-        return messageRequest;
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.DONITZ_MESSAGE_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
+    }
+
+    @Test
+    void navalEnigmaOriginalMessageTestU534() {
+        /*  U-534 P1030659
+            Machine Settings for Enigma M4
+            Reflector:      Thin B
+            Wheel order:    G IV III VIII
+            Ring positions: A A C U
+            Plug pairs:     CH EJ NV OU TY LG SZ PK DI QB
+            Key:            Y V O S
+         */
+        MessageRequest messageRequest = new MessageRequest();
+        messageRequest.machineModel = "M4";
+        messageRequest.reflector = "ThinB";
+        messageRequest.wheelOrder = "Gamma IV III VIII";
+        messageRequest.ringSettings = "AACU";
+        messageRequest.plugboardSettings = "CH EJ NV OU TY LG SZ PK DI QB";
+        messageRequest.key = "YVOS";
+        messageRequest.plaintext = OriginalMessages.U534_MESSAGE_PLAINTEXT;
+
+        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String expected = OriginalMessages.U534_MESSAGE_CIPHERTEXT;
+        assertEquals(expected, cipherMessage);
     }
 
 }

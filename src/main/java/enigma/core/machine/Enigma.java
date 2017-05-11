@@ -60,15 +60,16 @@ public class Enigma {
         StringBuilder cipherText = new StringBuilder(plainText.length());
 
         for (char letter : plainText.toCharArray()) {
-            mechanism.step();
-            cipherText.append(cipher(letter));
+            if (letter != ' ') {
+                mechanism.step();
+                cipherText.append(cipher(Letter.fromChar(letter)));
+            }
         }
 
         return cipherText.toString();
     }
 
-    private Letter cipher(char plainLetter) {
-        Letter letter = Letter.fromChar(plainLetter);
+    private Letter cipher(Letter letter) {
 
         letter = plugboard.swap(letter);
         letter = cipherInwards(letter);

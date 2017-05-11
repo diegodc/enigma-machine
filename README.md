@@ -7,24 +7,25 @@ The code is tested against real enigma messages.
 
 Example:
 
-    /*  Machine Settings for Enigma I/M3
+    /*  Originial example from Enigma user manual
+        Machine Settings for Enigma I/M3
         Reflector:      A
         Wheel order:    II I III
-        Ring positions: X M V
+        Ring positions: XMV
         Plug pairs:     AM FI NV PS TU WZ
-        Key:            A B L
-    */
-    enigma = new Enigma(Reflectors.A.get(),
-                        M3Rotors.II.get(),
-                        M3Rotors.I.get(),
-                        M3Rotors.III.get())
-             .changeRingSettings("XMV")
-             .changeRotorsPositions("ABL")
-             .setPlugboard("AM FI NV PS TU WZ");
+        Key:            ABL
+     */
+    MessageRequest request = new MessageRequest();
 
-    String message = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
+    request.machineModel = "M3";
+    request.reflector = "A";
+    request.wheelOrder = "II I III";
+    request.ringSettings = "XMV";
+    request.plugboardSettings = "AM FI NV PS TU WZ";
+    request.key = "ABL";
+    request.plaintext = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
 
-    enigma.cipherMessage(message)
+    String cipherMessage = enigmaService.cipherMessage(request);
 
 
-For more usage examples go to the test class EnigmaTest.
+For more usage examples go to the test class EnigmaServiceTest.

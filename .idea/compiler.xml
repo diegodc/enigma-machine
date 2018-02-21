@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="enigma-machine" target="1.8" />
+      <module name="enigma-machine" target="1.9" />
     </bytecodeTargetLevel>
   </component>
 </project>

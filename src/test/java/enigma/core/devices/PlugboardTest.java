@@ -62,7 +62,7 @@ class PlugboardTest {
     }
 
     @Test
-    void itIsPosibleToReconnectLetters() {
+    void itIsPossibleToReconnectLetters() {
         plugboard.connect(A, B);
         assertEquals(A, plugboard.swap(B));
         assertEquals(B, plugboard.swap(A));

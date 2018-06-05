@@ -17,13 +17,13 @@ Example:
      */
     MessageRequest request = new MessageRequest();
 
-    request.machineModel = "M3";
+    request.enigmaModel = "M3";
     request.reflector = "A";
-    request.wheelOrder = "II I III";
+    request.wheels = "II I III";
     request.ringSettings = "XMV";
-    request.plugboardSettings = "AM FI NV PS TU WZ";
+    request.plugboard = "AM FI NV PS TU WZ";
     request.key = "ABL";
-    request.plaintext = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
+    request.message = "GCDSEAHUGWTQGRKVLFGXUCALXVYMIGMMNMFDXTGNVHVRMMEVOUYFZSLRHDRRXFJWCFHUHMUNZEFRDISIKBGPMYVXUZ";
 
     String cipherMessage = enigmaService.cipherMessage(request);
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A rotor of the Enigma machineModel. The rotor ciphers each letter according to its wiring,
+ * A rotor of the Enigma enigmaModel. The rotor ciphers each letter according to its wiring,
  * position and ring setting.
  *
  * This is a simple rotor without turnover notch.

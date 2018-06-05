@@ -31,15 +31,15 @@ class EnigmaServiceTest {
             Key:            ABL
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M3";
+        messageRequest.enigmaModel = "M3";
         messageRequest.reflector = "A";
-        messageRequest.wheelOrder = "II I III";
+        messageRequest.wheels = "II I III";
         messageRequest.ringSettings = "XMV";
-        messageRequest.plugboardSettings = "AM FI NV PS TU WZ";
+        messageRequest.plugboard = "AM FI NV PS TU WZ";
         messageRequest.key = "ABL";
-        messageRequest.plaintext = OriginalMessages.ENIGMA_MANUAL_PLAINTEXT;
+        messageRequest.message = OriginalMessages.ENIGMA_MANUAL_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.ENIGMA_MANUAL_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }
@@ -58,22 +58,22 @@ class EnigmaServiceTest {
             Part Two Key: LSD
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M3";
+        messageRequest.enigmaModel = "M3";
         messageRequest.reflector = "B";
-        messageRequest.wheelOrder = "II IV V";
+        messageRequest.wheels = "II IV V";
         messageRequest.ringSettings = "BUL";
-        messageRequest.plugboardSettings = "AV BS CG DL FU HZ IN KM OW RX";
+        messageRequest.plugboard = "AV BS CG DL FU HZ IN KM OW RX";
         messageRequest.key = "BLA";
-        messageRequest.plaintext = OriginalMessages.OPERATION_BARBAROSSA_PART1_PLAINTEXT;
+        messageRequest.message = OriginalMessages.OPERATION_BARBAROSSA_PART1_PLAINTEXT;
 
-        String cipherMessagePartI = enigmaService.cipherMessage(messageRequest);
+        String cipherMessagePartI = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expectedPartI = OriginalMessages.OPERATION_BARBAROSSA_PART1_CIPHERTEXT;
         assertEquals(expectedPartI, cipherMessagePartI);
 
         messageRequest.key = "LSD";
-        messageRequest.plaintext = OriginalMessages.OPERATION_BARBAROSSA_PART2_PLAINTEXT;
+        messageRequest.message = OriginalMessages.OPERATION_BARBAROSSA_PART2_PLAINTEXT;
 
-        String cipherMessagePartII = enigmaService.cipherMessage(messageRequest);
+        String cipherMessagePartII = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expectedPartII = OriginalMessages.OPERATION_BARBAROSSA_PART2_CIPHERTEXT;
         assertEquals(expectedPartII, cipherMessagePartII);
     }
@@ -89,15 +89,15 @@ class EnigmaServiceTest {
             Key:            AQO
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M3";
+        messageRequest.enigmaModel = "M3";
         messageRequest.reflector = "B";
-        messageRequest.wheelOrder = "VII VI V";
+        messageRequest.wheels = "VII VI V";
         messageRequest.ringSettings = "AXP";
-        messageRequest.plugboardSettings = "AV BF DR IM OS WY";
+        messageRequest.plugboard = "AV BF DR IM OS WY";
         messageRequest.key = "AQO";
-        messageRequest.plaintext = OriginalMessages.NORRKOPING_PLAINTEXT;
+        messageRequest.message = OriginalMessages.NORRKOPING_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.NORRKOPING_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }
@@ -113,15 +113,15 @@ class EnigmaServiceTest {
             Key:            UZV
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M3";
+        messageRequest.enigmaModel = "M3";
         messageRequest.reflector = "B";
-        messageRequest.wheelOrder = "III VI VIII";
+        messageRequest.wheels = "III VI VIII";
         messageRequest.ringSettings = "AHM";
-        messageRequest.plugboardSettings = "AN EZ HK IJ LR MQ OT PV SW UX";
+        messageRequest.plugboard = "AN EZ HK IJ LR MQ OT PV SW UX";
         messageRequest.key = "UZV";
-        messageRequest.plaintext = OriginalMessages.SCHARNHORST_PLAINTEXT;
+        messageRequest.message = OriginalMessages.SCHARNHORST_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.SCHARNHORST_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }
@@ -137,15 +137,15 @@ class EnigmaServiceTest {
             Key:            V J N A
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M4";
+        messageRequest.enigmaModel = "M4";
         messageRequest.reflector = "ThinB";
-        messageRequest.wheelOrder = "Beta II IV I";
+        messageRequest.wheels = "Beta II IV I";
         messageRequest.ringSettings = "AAAV";
-        messageRequest.plugboardSettings = "AT BL DF GJ HM NW OP QY RZ VX";
+        messageRequest.plugboard = "AT BL DF GJ HM NW OP QY RZ VX";
         messageRequest.key = "VJNA";
-        messageRequest.plaintext = OriginalMessages.U264_MESSAGE_PLAINTEXT;
+        messageRequest.message = OriginalMessages.U264_MESSAGE_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.U264_MESSAGE_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }
@@ -161,15 +161,15 @@ class EnigmaServiceTest {
             Key:            C D S Z
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M4";
+        messageRequest.enigmaModel = "M4";
         messageRequest.reflector = "ThinC";
-        messageRequest.wheelOrder = "Beta V VI VIII";
+        messageRequest.wheels = "Beta V VI VIII";
         messageRequest.ringSettings = "EPEL";
-        messageRequest.plugboardSettings = "AE BF CM DQ HU JN LX PR SZ VW";
+        messageRequest.plugboard = "AE BF CM DQ HU JN LX PR SZ VW";
         messageRequest.key = "CDSZ";
-        messageRequest.plaintext = OriginalMessages.DONITZ_MESSAGE_PLAINTEXT;
+        messageRequest.message = OriginalMessages.DONITZ_MESSAGE_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.DONITZ_MESSAGE_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }
@@ -185,15 +185,15 @@ class EnigmaServiceTest {
             Key:            Y V O S
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.machineModel = "M4";
+        messageRequest.enigmaModel = "M4";
         messageRequest.reflector = "ThinB";
-        messageRequest.wheelOrder = "Gamma IV III VIII";
+        messageRequest.wheels = "Gamma IV III VIII";
         messageRequest.ringSettings = "AACU";
-        messageRequest.plugboardSettings = "CH EJ NV OU TY LG SZ PK DI QB";
+        messageRequest.plugboard = "CH EJ NV OU TY LG SZ PK DI QB";
         messageRequest.key = "YVOS";
-        messageRequest.plaintext = OriginalMessages.U534_MESSAGE_PLAINTEXT;
+        messageRequest.message = OriginalMessages.U534_MESSAGE_PLAINTEXT;
 
-        String cipherMessage = enigmaService.cipherMessage(messageRequest);
+        String cipherMessage = enigmaService.cipherMessage(messageRequest).cipheredMessage;
         String expected = OriginalMessages.U534_MESSAGE_CIPHERTEXT;
         assertEquals(expected, cipherMessage);
     }

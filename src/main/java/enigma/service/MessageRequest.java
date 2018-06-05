@@ -7,12 +7,12 @@ package enigma.service;
  */
 public class MessageRequest {
 
-    public String machineModel = "";
-    public String wheelOrder = "";
+    public String enigmaModel = "";
+    public String wheels = "";
     public String reflector = "";
     public String ringSettings = "";
-    public String plugboardSettings = "";
+    public String plugboard = "";
     public String key = "";
-    public String plaintext = "";
+    public String message = "";
 
 }

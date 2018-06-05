@@ -16,33 +16,33 @@ public class EnigmaService {
 
     private MessageRequest request;
 
-    public String cipherMessage(MessageRequest messageRequest) {
+    public CipheredMessage cipherMessage(MessageRequest messageRequest) {
 
         request = messageRequest;
 
-        return buildMachine().cipherMessage(request.plaintext);
+        return new CipheredMessage(buildMachine().cipherMessage(request.message));
     }
 
     private Enigma buildMachine() {
         return build()
                 .changeRingSettings(request.ringSettings)
-                .setPlugboard(request.plugboardSettings)
+                .setPlugboard(request.plugboard)
                 .changeRotorsPositions(request.key);
     }
 
     private Enigma build() {
-        switch (request.machineModel) {
+        switch (request.enigmaModel) {
             case "M3":
                 return buildM3Enigma();
             case "M4":
                 return buildM4Enigma();
         }
-        throw new EnigmaServiceException("Invalid enigma model: " + request.machineModel);
+        throw new EnigmaServiceException("Invalid enigma model: " + request.enigmaModel);
     }
 
     private Enigma buildM4Enigma() {
 
-        String[] rotors = parseWheelOrder(request.wheelOrder, 4);
+        String[] rotors = parseWheelOrder(request.wheels, 4);
 
         return new Enigma(
                 Reflectors.valueOf(request.reflector).get(),
@@ -54,7 +54,7 @@ public class EnigmaService {
 
     private Enigma buildM3Enigma() {
 
-        String[] rotors = parseWheelOrder(request.wheelOrder, 3);
+        String[] rotors = parseWheelOrder(request.wheels, 3);
 
         return new Enigma(
                 Reflectors.valueOf(request.reflector).get(),

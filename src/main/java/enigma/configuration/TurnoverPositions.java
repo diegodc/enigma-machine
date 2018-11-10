@@ -16,8 +16,8 @@ public class TurnoverPositions {
     public static final Letter[] ROTOR_III_NOTCH = {V};
     public static final Letter[] ROTOR_IV_NOTCH = {J};
     public static final Letter[] ROTOR_V_NOTCH = {Z};
-    public static final Letter[] ROTOR_VI_NOTCHES = {M,Z};
-    public static final Letter[] ROTOR_VII_NOTCHES = {M,Z};
-    public static final Letter[] ROTOR_VIII_NOTCHES = {M,Z};
+    public static final Letter[] ROTOR_VI_NOTCHES = {M, Z};
+    public static final Letter[] ROTOR_VII_NOTCHES = {M, Z};
+    public static final Letter[] ROTOR_VIII_NOTCHES = {M, Z};
 
 }

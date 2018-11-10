@@ -32,9 +32,9 @@ public class EnigmaService {
 
     private Enigma build() {
         switch (request.enigmaModel) {
-            case "M3":
+            case M3:
                 return buildM3Enigma();
-            case "M4":
+            case M4:
                 return buildM4Enigma();
         }
         throw new EnigmaServiceException("Invalid enigma model: " + request.enigmaModel);
@@ -45,7 +45,7 @@ public class EnigmaService {
         String[] rotors = parseWheelOrder(request.wheels, 4);
 
         return new Enigma(
-                Reflectors.valueOf(request.reflector).get(),
+                Reflectors.valueOf(request.reflector.name()).get(),
                 M4Rotors.valueOf(rotors[0]).get(),
                 M3Rotors.valueOf(rotors[1]).get(),
                 M3Rotors.valueOf(rotors[2]).get(),
@@ -57,7 +57,7 @@ public class EnigmaService {
         String[] rotors = parseWheelOrder(request.wheels, 3);
 
         return new Enigma(
-                Reflectors.valueOf(request.reflector).get(),
+                Reflectors.valueOf(request.reflector.name()).get(),
                 M3Rotors.valueOf(rotors[0]).get(),
                 M3Rotors.valueOf(rotors[1]).get(),
                 M3Rotors.valueOf(rotors[2]).get());

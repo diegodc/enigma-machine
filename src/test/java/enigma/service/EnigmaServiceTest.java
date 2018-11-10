@@ -4,6 +4,9 @@ import enigma.core.machine.OriginalMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static enigma.service.EnigmaModel.M3;
+import static enigma.service.EnigmaModel.M4;
+import static enigma.service.ReflectorModel.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -31,8 +34,8 @@ class EnigmaServiceTest {
             Key:            ABL
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M3";
-        messageRequest.reflector = "A";
+        messageRequest.enigmaModel = M3;
+        messageRequest.reflector = A;
         messageRequest.wheels = "II I III";
         messageRequest.ringSettings = "XMV";
         messageRequest.plugboard = "AM FI NV PS TU WZ";
@@ -58,8 +61,8 @@ class EnigmaServiceTest {
             Part Two Key: LSD
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M3";
-        messageRequest.reflector = "B";
+        messageRequest.enigmaModel = M3;
+        messageRequest.reflector = B;
         messageRequest.wheels = "II IV V";
         messageRequest.ringSettings = "BUL";
         messageRequest.plugboard = "AV BS CG DL FU HZ IN KM OW RX";
@@ -89,8 +92,8 @@ class EnigmaServiceTest {
             Key:            AQO
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M3";
-        messageRequest.reflector = "B";
+        messageRequest.enigmaModel = M3;
+        messageRequest.reflector = B;
         messageRequest.wheels = "VII VI V";
         messageRequest.ringSettings = "AXP";
         messageRequest.plugboard = "AV BF DR IM OS WY";
@@ -113,8 +116,8 @@ class EnigmaServiceTest {
             Key:            UZV
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M3";
-        messageRequest.reflector = "B";
+        messageRequest.enigmaModel = M3;
+        messageRequest.reflector = B;
         messageRequest.wheels = "III VI VIII";
         messageRequest.ringSettings = "AHM";
         messageRequest.plugboard = "AN EZ HK IJ LR MQ OT PV SW UX";
@@ -137,8 +140,8 @@ class EnigmaServiceTest {
             Key:            V J N A
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M4";
-        messageRequest.reflector = "ThinB";
+        messageRequest.enigmaModel = M4;
+        messageRequest.reflector = ThinB;
         messageRequest.wheels = "Beta II IV I";
         messageRequest.ringSettings = "AAAV";
         messageRequest.plugboard = "AT BL DF GJ HM NW OP QY RZ VX";
@@ -161,8 +164,8 @@ class EnigmaServiceTest {
             Key:            C D S Z
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M4";
-        messageRequest.reflector = "ThinC";
+        messageRequest.enigmaModel = M4;
+        messageRequest.reflector = ThinC;
         messageRequest.wheels = "Beta V VI VIII";
         messageRequest.ringSettings = "EPEL";
         messageRequest.plugboard = "AE BF CM DQ HU JN LX PR SZ VW";
@@ -185,8 +188,8 @@ class EnigmaServiceTest {
             Key:            Y V O S
          */
         MessageRequest messageRequest = new MessageRequest();
-        messageRequest.enigmaModel = "M4";
-        messageRequest.reflector = "ThinB";
+        messageRequest.enigmaModel = M4;
+        messageRequest.reflector = ThinB;
         messageRequest.wheels = "Gamma IV III VIII";
         messageRequest.ringSettings = "AACU";
         messageRequest.plugboard = "CH EJ NV OU TY LG SZ PK DI QB";

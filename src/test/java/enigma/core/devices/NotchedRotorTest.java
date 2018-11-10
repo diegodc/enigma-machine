@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class NotchedRotorTest {
 
-    private static final Letter[] WIRING = {E,K,M,F,L,G,D,Q,V,Z,N,T,O,W,Y,H,X,U,S,P,A,I,B,R,C,J};
-    private static final Letter[] INCOMPLETE_WIRING = {B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
-    private static final Letter[] DUPLICATE_LETTER_WIRING = {A,A,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
+    private static final Letter[] WIRING = {E, K, M, F, L, G, D, Q, V, Z, N, T, O, W, Y, H, X, U, S, P, A, I, B, R, C, J};
+    private static final Letter[] INCOMPLETE_WIRING = {B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
+    private static final Letter[] DUPLICATE_LETTER_WIRING = {A, A, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
     private static final Letter[] SINGLE_NOTCH = {Q};
-    private static final Letter[] DOUBLE_NOTCH = {M,Z};
+    private static final Letter[] DOUBLE_NOTCH = {M, Z};
 
     private NotchedRotor rotor;
 
@@ -121,7 +121,7 @@ class NotchedRotorTest {
 
         Letter[] allPositions = Letter.values();
 
-        for(Letter expectedPosition : allPositions) {
+        for (Letter expectedPosition : allPositions) {
             assertEquals(expectedPosition, rotor.currentPosition());
             rotor.step();
         }
@@ -132,7 +132,7 @@ class NotchedRotorTest {
     @Test
     void cipherInwardsInDefaultPositionAndRingSetting() {
 
-        Letter[] expectedLetters = {E,K,M,F,L,G,D,Q,V,Z,N,T,O,W,Y,H,X,U,S,P,A,I,B,R,C,J};
+        Letter[] expectedLetters = {E, K, M, F, L, G, D, Q, V, Z, N, T, O, W, Y, H, X, U, S, P, A, I, B, R, C, J};
         Letter actual = A;
 
         for (Letter expected : expectedLetters) {
@@ -143,7 +143,7 @@ class NotchedRotorTest {
 
     @Test
     void cipherOutwardsInDefaultPositionAndRingSetting() {
-        Letter[] actualLetters = {E,K,M,F,L,G,D,Q,V,Z,N,T,O,W,Y,H,X,U,S,P,A,I,B,R,C,J};
+        Letter[] actualLetters = {E, K, M, F, L, G, D, Q, V, Z, N, T, O, W, Y, H, X, U, S, P, A, I, B, R, C, J};
         Letter expected = A;
 
         for (Letter actual : actualLetters) {
@@ -155,7 +155,7 @@ class NotchedRotorTest {
     @Test
     void cipherInwardsDefaultPositionRingSettingB() {
 
-        Letter[] expectedLetters = {K,F,L,N,G,M,H,E,R,W,A,O,U,P,X,Z,I,Y,V,T,Q,B,J,C,S,D};
+        Letter[] expectedLetters = {K, F, L, N, G, M, H, E, R, W, A, O, U, P, X, Z, I, Y, V, T, Q, B, J, C, S, D};
         Letter actual = A;
 
         rotor.changeRingSetting(B);
@@ -169,7 +169,7 @@ class NotchedRotorTest {
     @Test
     void cipherOutwardsDefaultPositionRingSettingL() {
 
-        Letter[] actualLetters = {S,I,F,D,A,L,T,M,C,N,U,P,V,X,Q,W,R,O,B,G,K,Y,E,Z,H,J};
+        Letter[] actualLetters = {S, I, F, D, A, L, T, M, C, N, U, P, V, X, Q, W, R, O, B, G, K, Y, E, Z, H, J};
         Letter expected = A;
 
         rotor.changeRingSetting(L);

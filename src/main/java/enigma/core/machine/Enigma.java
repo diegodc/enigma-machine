@@ -81,7 +81,7 @@ public class Enigma {
     }
 
     private Letter cipherInwards(Letter letter) {
-        for (int i = numberOfRotors -1; i >= 0; i--)
+        for (int i = numberOfRotors - 1; i >= 0; i--)
             letter = rotors.get(i).cipherInwards(letter);
         return letter;
     }

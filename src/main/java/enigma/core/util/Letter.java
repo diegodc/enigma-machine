@@ -8,7 +8,7 @@ package enigma.core.util;
  */
 public enum Letter {
 
-    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z;
+    A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
 
     /**
      * Converts the given character into a Letter.
@@ -23,7 +23,7 @@ public enum Letter {
 
     /**
      * Gives the next letter in the alphabet.
-     *
+     * <p>
      * Example:
      * A.nextLetter -> B
      * Z.nextLetter -> A

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests the step sequence
- *
+ * <p>
  * Examples taken from:
  * http://enigma.louisedade.co.uk/enigma.html
  *
@@ -18,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class RotorMechanismTest {
 
-    private static final Letter[] ROTOR_I = {E,K,M,F,L,G,D,Q,V,Z,N,T,O,W,Y,H,X,U,S,P,A,I,B,R,C,J};
-    private static final Letter[] ROTOR_II = {A,J,D,K,S,I,R,U,X,B,L,H,W,T,M,C,Q,G,Z,N,P,Y,F,V,O,E};
-    private static final Letter[] ROTOR_III = {B,D,F,H,J,L,C,P,R,T,X,V,Z,N,Y,E,I,W,G,A,K,M,U,S,Q,O};
+    private static final Letter[] ROTOR_I = {E, K, M, F, L, G, D, Q, V, Z, N, T, O, W, Y, H, X, U, S, P, A, I, B, R, C, J};
+    private static final Letter[] ROTOR_II = {A, J, D, K, S, I, R, U, X, B, L, H, W, T, M, C, Q, G, Z, N, P, Y, F, V, O, E};
+    private static final Letter[] ROTOR_III = {B, D, F, H, J, L, C, P, R, T, X, V, Z, N, Y, E, I, W, G, A, K, M, U, S, Q, O};
     private static final Letter[] ROTOR_I_NOTCH = {Q};
     private static final Letter[] ROTOR_II_NOTCH = {E};
     private static final Letter[] ROTOR_III_NOTCH = {V};

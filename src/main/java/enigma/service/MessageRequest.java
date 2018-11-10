@@ -7,9 +7,9 @@ package enigma.service;
  */
 public class MessageRequest {
 
-    public String enigmaModel = "";
+    public EnigmaModel enigmaModel;
     public String wheels = "";
-    public String reflector = "";
+    public ReflectorModel reflector;
     public String ringSettings = "";
     public String plugboard = "";
     public String key = "";

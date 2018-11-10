@@ -35,7 +35,7 @@ class PlugboardTest {
     void lettersAreCorrectlySteckered() {
         connectLetters();
 
-        Letter[] connectedLetters = {W,F,L,N,O,B,K,V,J,I,G,C,Z,D,E,X,T,Y,U,Q,S,H,A,P,R,M};
+        Letter[] connectedLetters = {W, F, L, N, O, B, K, V, J, I, G, C, Z, D, E, X, T, Y, U, Q, S, H, A, P, R, M};
 
         Letter actual = A;
 

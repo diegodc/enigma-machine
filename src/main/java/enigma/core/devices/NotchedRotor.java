@@ -17,7 +17,7 @@ public class NotchedRotor extends Rotor {
     /**
      * Creates a Notched Rotor with the given wiring and turnover positions.
      *
-     * @param wiring the wiring of the rotor
+     * @param wiring            the wiring of the rotor
      * @param turnoverPositions an array with the turnover positions
      */
     public NotchedRotor(Letter[] wiring, Letter[] turnoverPositions) {

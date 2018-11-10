@@ -22,15 +22,15 @@ class EnigmaTest {
     @BeforeEach
     void setUp() {
         m3Enigma = new Enigma(Reflectors.B.get(),
-                            M3Rotors.I.get(),
-                            M3Rotors.II.get(),
-                            M3Rotors.III.get());
+                M3Rotors.I.get(),
+                M3Rotors.II.get(),
+                M3Rotors.III.get());
 
         m4Enigma = new Enigma((Reflectors.ThinB.get()),
-                            M4Rotors.Beta.get(),
-                            M3Rotors.VI.get(),
-                            M3Rotors.VII.get(),
-                            M3Rotors.VIII.get());
+                M4Rotors.Beta.get(),
+                M3Rotors.VI.get(),
+                M3Rotors.VII.get(),
+                M3Rotors.VIII.get());
     }
 
     @Test
@@ -287,51 +287,51 @@ class EnigmaTest {
 
     @Test
     void rotorSettingsAreCheckedForM3Enigma() {
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRingSettings("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRingSettings("1"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRingSettings("AA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRingSettings("AAAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRingSettings("123"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRingSettings("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRingSettings("1"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRingSettings("AA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRingSettings("AAAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRingSettings("123"));
 
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRotorsPositions("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRotorsPositions("1"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRotorsPositions("AA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRotorsPositions("AAAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.changeRotorsPositions("123"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRotorsPositions("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRotorsPositions("1"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRotorsPositions("AA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRotorsPositions("AAAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.changeRotorsPositions("123"));
     }
 
     @Test
     void rotorSettingsAreCheckedForM4Enigma() {
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRingSettings("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRingSettings("1"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRingSettings("AAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRingSettings("AAAAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRingSettings("1234"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRingSettings("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRingSettings("1"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRingSettings("AAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRingSettings("AAAAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRingSettings("1234"));
 
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRotorsPositions("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRotorsPositions("1"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRotorsPositions("AAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRotorsPositions("AAAAA"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.changeRotorsPositions("1234"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRotorsPositions("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRotorsPositions("1"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRotorsPositions("AAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRotorsPositions("AAAAA"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.changeRotorsPositions("1234"));
     }
 
     @Test
     void plugboardSettingsAreChecked() {
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("ABC"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("AB C"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("A BC"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("A B"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("AF BR A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m3Enigma.setPlugboard("12 34"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("ABC"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("AB C"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("A BC"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("A B"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("AF BR A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m3Enigma.setPlugboard("12 34"));
 
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("ABC"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("AB C"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("A BC"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("A B"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("AF BR A"));
-        assertThrows(Enigma.InvalidSetting.class, ()-> m4Enigma.setPlugboard("12 34"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("ABC"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("AB C"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("A BC"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("A B"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("AF BR A"));
+        assertThrows(Enigma.InvalidSetting.class, () -> m4Enigma.setPlugboard("12 34"));
     }
 
 }

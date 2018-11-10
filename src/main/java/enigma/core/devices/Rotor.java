@@ -8,9 +8,9 @@ import java.util.Map;
 /**
  * A rotor of the Enigma enigmaModel. The rotor ciphers each letter according to its wiring,
  * position and ring setting.
- *
+ * <p>
  * This is a simple rotor without turnover notch.
- *
+ * <p>
  * More information: https://en.wikipedia.org/wiki/Enigma_rotor_details
  *
  * @author diegodc 2017-02-02.
@@ -26,10 +26,10 @@ public class Rotor {
     /**
      * Creates a new rotor with the given wiring.
      * Initially the rotor is set in 'A' position and ring setting is also 'A'.
-     *
+     * <p>
      * Wiring format example from Rotor I (Enigma I, M3 and M4):
      * {E,K,M,F,L,G,D,Q,V,Z,N,T,O,W,Y,H,X,U,S,P,A,I,B,R,C,J}
-     *
+     * <p>
      * 'A' is encoded as 'E'
      * 'B' is encoded as 'K'
      * 'C' is encoded as 'M'

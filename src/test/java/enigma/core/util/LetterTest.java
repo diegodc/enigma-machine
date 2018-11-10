@@ -16,8 +16,8 @@ class LetterTest {
     @Test
     void shouldReturnTheNextLetterDownTheAlphabet() {
 
-        Letter[] letters = {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
-        Letter[] expectedLetters = {B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,A};
+        Letter[] letters = {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
+        Letter[] expectedLetters = {B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, A};
 
         for (int i = 0; i < 26; i++) {
             Letter letter = letters[i];
@@ -77,9 +77,9 @@ class LetterTest {
 
     @Test
     void invalidCharShouldThrowException() {
-        assertThrows(IllegalArgumentException.class,() -> Letter.fromChar('4'));
-        assertThrows(IllegalArgumentException.class,() -> Letter.fromChar('.'));
-        assertThrows(IllegalArgumentException.class,() -> Letter.fromChar('-'));
+        assertThrows(IllegalArgumentException.class, () -> Letter.fromChar('4'));
+        assertThrows(IllegalArgumentException.class, () -> Letter.fromChar('.'));
+        assertThrows(IllegalArgumentException.class, () -> Letter.fromChar('-'));
     }
 
     @Test

@@ -4,6 +4,7 @@ import enigma.service.CipheredMessage;
 import enigma.service.EnigmaService;
 import enigma.service.MessageRequest;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,11 @@ public class EnigmaRestController {
 
         return new EnigmaService().cipherMessage(request);
 
+    }
+    
+    @GetMapping
+    public String get() {
+        return "Enigma Machine Service";
     }
 
 }
